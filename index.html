@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ระบบสารสนเทศเพื่อการบริหารจัดการทางการเงินห้องเรียน</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%);
+            --card-bg: #ffffff;
+            --body-bg: #f8fafc;
+        }
+
+        body {
+            font-family: 'Sarabun', 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--body-bg);
+            color: #1e293b;
+            min-height: 100vh;
+        }
+
+        .hero-header {
+            background: var(--primary-gradient);
+            color: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 25px -5px rgba(79, 70, 229, 0.3);
+            margin-bottom: 30px;
+        }
+
+        .card-custom {
+            border: none;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+            background: var(--card-bg);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+        }
+
+        .stat-card-income { border-left: 5px solid #10b981; }
+        .stat-card-expense { border-left: 5px solid #f43f5e; }
+        .stat-card-balance { border-left: 5px solid #4f46e5; }
+
+        .badge-in { background-color: #d1fae5; color: #065f46; font-weight: 600; }
+        .badge-out { background-color: #fee2e2; color: #991b1b; font-weight: 600; }
+
+        .form-control, .form-select {
+            border-radius: 10px;
+            padding: 10px 15px;
+            border: 1px solid #cbd5e1;
+        }
+
+        .form-control:focus, .form-select:focus {
+            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.15);
+            border-color: #4f46e5;
+        }
+
+        .btn-custom-primary {
+            background: var(--primary-gradient);
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            color: white;
+            transition: opacity 0.2s;
+        }
+
+        .btn-custom-primary:hover { opacity: 0.9; color: white; }
+
+        .table thead th {
+            background-color: #f1f5f9;
+            color: #475569;
+            font-weight: 600;
+            border-top: none;
+            border-bottom: 2px solid #e2e8f0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container py-5">
+        <!-- ส่วนหัวข้อระบบ -->
+        <div class="hero-header d-flex flex-column flex-md-row justify-content-between align-items-center">
+            <div>
+                <h2 class="fw-bold mb-1"><i class="bi bi-bank me-2"></i>ระบบสารสนเทศเพื่อการบริหารจัดการทางการเงินห้องเรียน DTL #33</h2>
+                <p class="mb-0 text-white-50">การตรวจสอบและการจัดทำรายงานทางการเงินเพื่อความโปร่งใส</p>
+            </div>
+            <div class="mt-3 mt-md-0">
+                <a href="https://docs.google.com/spreadsheets/d/1LLxC5XuOAR6h6sQ6zHzySbrXu6OfueyaBUTKGtMWmBU/edit?usp=sharing" target="_blank" class="btn btn-light text-primary fw-bold shadow-sm px-4 py-2 rounded-pill">
+                    <i class="bi bi-file-earmark-spreadsheet-fill me-2 text-success"></i> เปิดไฟล์
+                </a>
+            </div>
+        </div>
+
+        <!-- การ์ดแจ้งเตือนการทำงาน -->
+        <div id="alert-container" class="mb-4"></div>
+
+        <!-- การ์ดแสดงผลสรุปทางการเงิน -->
+        <div class="row g-4 mb-4">
+            <div class="col-md-4">
+                <div class="card card-custom stat-card-income p-4">
+                    <div class="text-muted small fw-bold text-uppercase mb-1">รายรับรวมสะสม</div>
+                    <h3 class="fw-bold text-success mb-0" id="total-income">0.00 <span class="fs-6 text-muted">บาท</span></h3>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card card-custom stat-card-expense p-4">
+                    <div class="text-muted small fw-bold text-uppercase mb-1">รายจ่ายรวมสะสม</div>
+                    <h3 class="fw-bold text-danger mb-0" id="total-expense">0.00 <span class="fs-6 text-muted">บาท</span></h3>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card card-custom stat-card-balance p-4">
+                    <div class="text-muted small fw-bold text-uppercase mb-1">ยอดเงินคงเหลือสุทธิ</div>
+                    <h3 class="fw-bold text-indigo mb-0" style="color: #4f46e5;" id="net-balance">0.00 <span class="fs-6 text-muted">บาท</span></h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- ส่วนงานที่ 1: การแจ้งโอนเงินสำหรับนักศึกษา -->
+        <div class="card card-custom p-4 mb-4 border-start border-4 border-info">
+            <h5 class="fw-bold mb-3 text-info"><i class="bi bi-person-check-fill me-2"></i>แบบฟอร์มแจ้งข้อมูลการโอนเงิน (สำหรับนักศึกษา)</h5>
+            <form id="student-deposit-form">
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <label class="form-label small fw-bold text-secondary">รหัสนักศึกษา (10 หลัก)</label>
+                        <input type="text" class="form-control" id="studentId" maxlength="10" placeholder="ระบุรหัสนักศึกษา" required>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label small fw-bold text-secondary">ชื่อ - สกุล</label>
+                        <input type="text" class="form-control bg-light" id="studentFullname" placeholder="แสดงข้อมูลอัตโนมัติ" readonly required>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label small fw-bold text-secondary">จำนวนเงิน (บาท)</label>
+                        <input type="number" step="0.01" class="form-control" id="depositAmount" placeholder="0.00" required>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label small fw-bold text-secondary">วันและเวลาที่โอนเงิน</label>
+                        <input type="datetime-local" class="form-control" id="transferTime" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label small fw-bold text-secondary">รหัสอ้างอิง/เลขที่รายการ จากสลิป (4 ตัวสุดท้าย)</label>
+                        <input type="text" class="form-control" id="refNo" maxlength="4" placeholder="ระบุเลข 4 ตัวสุดท้าย" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label small fw-bold text-secondary"><i class="bi bi-paperclip me-1"></i>แนบหลักฐานการโอนเงิน (สลิป/เอกสาร)</label>
+                        <input type="file" class="form-control" id="depositSlip" accept="image/*,application/pdf" required>
+                    </div>
+                    <div class="col-md-4 d-flex align-items-end">
+                        <button type="submit" class="btn btn-info text-white w-100 py-2.5 fw-bold shadow-sm" id="deposit-btn">
+                            <i class="bi bi-send-check-fill me-1"></i> ยืนยันการแจ้งโอนเงิน
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- ส่วนงานที่ 2: การบันทึกรายการทางการเงินสำหรับผู้ดูแลระบบ -->
+        <div class="card card-custom p-4 mb-4">
+            <h5 class="fw-bold mb-4 text-primary"><i class="bi bi-pencil-square me-2"></i>แบบฟอร์มบันทึกรายการทางการเงิน (สำหรับผู้ดูแลระบบ)</h5>
+            <form id="transaction-form">
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <label class="form-label small fw-bold text-secondary">วันที่ทำรายการ</label>
+                        <input type="date" class="form-control" id="date" required>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label small fw-bold text-secondary">ประเภทธุรกรรม</label>
+                        <select class="form-select" id="type" required>
+                            <option value="IN">รายรับ (IN)</option>
+                            <option value="OUT">รายจ่าย (OUT)</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label small fw-bold text-secondary">หมวดหมู่รายการ</label>
+                        <input type="text" class="form-control" id="category" placeholder="ระบุหมวดหมู่" required>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label small fw-bold text-secondary">จำนวนเงิน (บาท)</label>
+                        <input type="number" step="0.01" class="form-control" id="amount" placeholder="0.00" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label small fw-bold text-secondary">รายละเอียดการทำรายการ</label>
+                        <input type="text" class="form-control" id="description" placeholder="ระบุรายละเอียด..." required>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label small fw-bold text-secondary">ผู้เกี่ยวข้อง (ผู้รับเงิน/ผู้จ่ายเงิน)</label>
+                        <input type="text" class="form-control" id="person" placeholder="ระบุชื่อบุคคลหรือหน่วยงาน" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label small fw-bold text-secondary"><i class="bi bi-paperclip me-1"></i>แนบเอกสารประกอบ (ถ้ามี)</label>
+                        <input type="file" class="form-control" id="receiptFile" accept="image/*,application/pdf">
+                    </div>
+                    <div class="col-md-12">
+                        <hr class="text-muted my-2">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label small fw-bold text-danger"><i class="bi bi-shield-lock-fill me-1"></i>รหัสผ่านยืนยันสิทธิ์ผู้ดูแลระบบ (Admin Password)</label>
+                        <input type="password" class="form-control border-danger" id="adminPassword" placeholder="กรอกรหัสผ่านเพื่อยืนยัน" required>
+                    </div>
+                    <div class="col-md-6 d-flex align-items-end">
+                        <button type="submit" class="btn btn-custom-primary w-100 py-2.5 shadow-sm" id="submit-btn">
+                            <i class="bi bi-check-circle-fill me-1"></i> บันทึกข้อมูลเข้าสู่ระบบ
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- ตารางแสดงรายการธุรกรรม -->
+        <div class="card card-custom p-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="fw-bold mb-0 text-dark"><i class="bi bi-journal-text me-2"></i>รายงานประวัติการทำรายการทางการเงินทั้งหมด</h5>
+                <span class="badge bg-light text-secondary border px-3 py-2 rounded-pill" id="record-count">กำลังดึงข้อมูล...</span>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover align-middle" id="data-table">
+                    <thead>
+                        <tr>
+                            <th>วันที่</th>
+                            <th>ประเภท</th>
+                            <th>หมวดหมู่</th>
+                            <th>รายการ</th>
+                            <th>ผู้เกี่ยวข้อง</th>
+                            <th class="text-end">จำนวนเงิน (บาท)</th>
+                            <th class="text-center">เอกสารอ้างอิง</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Scripting -->
+    <script>
+        const API_URL = "https://script.google.com/macros/s/AKfycbwIh7o6voTcU0iBKbGMaggQta2uATtIy90QzNfajaQ4NlkmvmkgJ9Cw5otTSR7YBahr/exec";
+
+        document.getElementById('date').valueAsDate = new Date();
+        loadData();
+
+        function showNotification(message, type = 'success') {
+            const container = document.getElementById('alert-container');
+            const alertClass = type === 'success' ? 'alert-success border-success' : 'alert-danger border-danger';
+            const icon = type === 'success' ? 'bi-check-circle-fill text-success' : 'bi-exclamation-triangle-fill text-danger';
+
+            container.innerHTML = `
+                <div class="alert ${alertClass} alert-dismissible fade show card-custom shadow-sm d-flex align-items-center py-3 border-start border-4" role="alert">
+                    <i class="bi ${icon} fs-3 me-3"></i>
+                    <div class="flex-grow-1 fw-bold text-dark">${message}</div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            `;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            if (type === 'success') {
+                setTimeout(() => { container.innerHTML = ''; }, 5000);
+            }
+        }
+
+        // ตรวจสอบและดึงข้อมูลชื่อนักศึกษาอัตโนมัติ
+        document.getElementById('studentId').addEventListener('input', function() {
+            const studentId = this.value.trim();
+            const nameInput = document.getElementById('studentFullname');
+            
+            if (studentId.length === 10) {
+                nameInput.value = "กำลังค้นหาข้อมูลนักศึกษา...";
+                fetch(`${API_URL}?action=getStudent&studentId=${studentId}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.status === "success") {
+                            nameInput.value = data.fullname;
+                        } else {
+                            nameInput.value = "";
+                            showNotification(data.message, 'error');
+                        }
+                    })
+                    .catch(err => {
+                        nameInput.value = "";
+                        console.error('Error:', err);
+                    });
+            } else {
+                nameInput.value = "";
+            }
+        });
+
+        // ส่งแบบฟอร์มการแจ้งโอนเงินของนักศึกษา
+        document.getElementById('student-deposit-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const refNo = document.getElementById('refNo').value.trim();
+            if (refNo.length !== 4) {
+                showNotification('โปรดระบุรหัสอ้างอิงจากสลิปให้ถูกต้องครบถ้วน (4 ตัวสุดท้าย)', 'error');
+                return;
+            }
+
+            const btn = document.getElementById('deposit-btn');
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> กำลังดำเนินการส่งข้อมูล...';
+
+            const fileInput = document.getElementById('depositSlip');
+            const file = fileInput.files[0];
+
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const base64Data = event.target.result.split(',')[1];
+                const payload = {
+                    action: 'studentSubmit',
+                    studentId: document.getElementById('studentId').value,
+                    fullname: document.getElementById('studentFullname').value,
+                    amount: document.getElementById('depositAmount').value,
+                    transferTime: document.getElementById('transferTime').value,
+                    refNo: refNo,
+                    file: base64Data,
+                    fileName: file.name,
+                    mimeType: file.type
+                };
+
+                fetch(API_URL, {
+                    method: 'POST',
+                    body: JSON.stringify(payload)
+                })
+                .then(res => res.json())
+                .then(result => {
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="bi bi-send-check-fill me-1"></i> ยืนยันการแจ้งโอนเงิน';
+                    if (result.status === "success") {
+                        showNotification(result.message, 'success');
+                        document.getElementById('student-deposit-form').reset();
+                        loadData();
+                    } else {
+                        showNotification(result.message, 'error');
+                    }
+                })
+                .catch(err => {
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="bi bi-send-check-fill me-1"></i> ยืนยันการแจ้งโอนเงิน';
+                    showNotification('เกิดข้อผิดพลาดในการเชื่อมต่อเครือข่าย', 'error');
+                });
+            };
+            reader.readAsDataURL(file);
+        });
+
+        // ดึงรายการธุรกรรมมาแสดงบนตาราง
+        function loadData() {
+            fetch(`${API_URL}?action=getData`)
+                .then(response => response.json())
+                .then(data => renderData(data))
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('record-count').innerText = 'เกิดข้อผิดพลาดในการดึงข้อมูล';
+                });
+        }
+
+        // ส่งแบบฟอร์มการบันทึกรายการของผู้ดูแลระบบ
+        document.getElementById('transaction-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> กำลังบันทึกข้อมูล...';
+
+            const fileInput = document.getElementById('receiptFile');
+            const file = fileInput.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const base64Data = event.target.result.split(',')[1];
+                    sendDataToAPI({
+                        file: base64Data,
+                        fileName: file.name,
+                        mimeType: file.type
+                    });
+                };
+                reader.readAsDataURL(file);
+            } else {
+                sendDataToAPI(null);
+            }
+        });
+
+        function sendDataToAPI(fileObj) {
+            const formData = {
+                date: document.getElementById('date').value,
+                type: document.getElementById('type').value,
+                category: document.getElementById('category').value,
+                amount: document.getElementById('amount').value,
+                description: document.getElementById('description').value,
+                person: document.getElementById('person').value,
+                adminPassword: document.getElementById('adminPassword').value,
+                file: fileObj ? fileObj.file : null,
+                fileName: fileObj ? fileObj.fileName : null,
+                mimeType: fileObj ? fileObj.mimeType : null
+            };
+
+            fetch(API_URL, {
+                method: 'POST',
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json())
+            .then(result => {
+                const submitBtn = document.getElementById('submit-btn');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="bi bi-check-circle-fill me-1"></i> บันทึกข้อมูลเข้าสู่ระบบ';
+
+                if (result.status === "success") {
+                    showNotification(result.message, 'success');
+                    document.getElementById('transaction-form').reset();
+                    document.getElementById('date').valueAsDate = new Date();
+                    loadData();
+                } else {
+                    showNotification(result.message, 'error');
+                }
+            })
+            .catch(error => {
+                const submitBtn = document.getElementById('submit-btn');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="bi bi-check-circle-fill me-1"></i> บันทึกข้อมูลเข้าสู่ระบบ';
+                showNotification('เกิดข้อผิดพลาดในการเชื่อมต่อเครือข่าย', 'error');
+            });
+        }
+
+        // แสดงผลข้อมูลตารางและการคำนวณทางการเงิน
+        function renderData(data) {
+            const tbody = document.getElementById('table-body');
+            tbody.innerHTML = '';
+
+            if (!data || data.length <= 1) {
+                tbody.innerHTML = `<tr><td colspan="7" class="text-center py-5 text-muted"><i class="bi bi-inbox fs-2 d-block mb-2"></i>ไม่พบข้อมูลการทำรายการในระบบ</td></tr>`;
+                document.getElementById('record-count').innerText = '0 รายการ';
+                return;
+            }
+
+            const rows = data.slice(1);
+            let totalIncome = 0;
+            let totalExpense = 0;
+
+            rows.forEach(row => {
+                const dateVal = row[1] ? new Date(row[1]).toLocaleDateString('th-TH', { year: 'numeric', month: 'short', day: 'numeric' }) : '-';
+                const type = row[2];
+                const category = row[3] || '-';
+                const description = row[5] || '-';
+                const person = row[6] || '-';
+                const amount = parseFloat(row[4]) || 0;
+                const receiptUrl = row[7];
+
+                if (type === 'IN') totalIncome += amount;
+                else if (type === 'OUT') totalExpense += amount;
+
+                const badgeClass = type === 'IN' ? 'badge-in' : 'badge-out';
+                const typeText = type === 'IN' ? 'รายรับ' : 'รายจ่าย';
+                const amountFormatted = amount.toLocaleString('th-TH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                const amountColor = type === 'IN' ? 'text-success' : 'text-danger';
+                const sign = type === 'IN' ? '+' : '-';
+
+                let receiptLink = '-';
+                if (receiptUrl && receiptUrl.startsWith('http')) {
+                    receiptLink = `<a href="${receiptUrl}" target="_blank" class="btn btn-sm btn-outline-primary rounded-pill px-3"><i class="bi bi-file-earmark-text me-1"></i>ตรวจสอบ</a>`;
+                }
+
+                tbody.innerHTML += `
+                    <tr>
+                        <td class="text-secondary">${dateVal}</td>
+                        <td><span class="badge ${badgeClass} px-2.5 py-1.5 rounded-pill">${typeText}</span></td>
+                        <td class="fw-semibold">${category}</td>
+                        <td>${description}</td>
+                        <td class="text-muted">${person}</td>
+                        <td class="text-end fw-bold ${amountColor}">${sign}${amountFormatted}</td>
+                        <td class="text-center">${receiptLink}</td>
+                    </tr>
+                `;
+            });
+
+            const netBalance = totalIncome - totalExpense;
+            document.getElementById('total-income').innerHTML = totalIncome.toLocaleString('th-TH', { minimumFractionDigits: 2 }) + ' <span class="fs-6 text-muted">บาท</span>';
+            document.getElementById('total-expense').innerHTML = totalExpense.toLocaleString('th-TH', { minimumFractionDigits: 2 }) + ' <span class="fs-6 text-muted">บาท</span>';
+            document.getElementById('net-balance').innerHTML = netBalance.toLocaleString('th-TH', { minimumFractionDigits: 2 }) + ' <span class="fs-6 text-muted">บาท</span>';
+            document.getElementById('record-count').innerText = `รวมทั้งสิ้น ${rows.length} รายการ`;
+        }
+    </script>
+</body>
+</html>
