@@ -3,33 +3,36 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ระบบสารสนเทศเพื่อการบริหารจัดการทางการเงินห้องเรียน DTL #33</title>
+<title>ระบบสารสนเทศทางการเงิน DTL #33</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 <style>
-  :root{
-    --bg:#eef1f6;
-    --surface:#ffffff;
-    --surface-alt:#f6f8fb;
-    --ink:#16213a;
-    --ink-soft:#5b6478;
-    --line:#e3e8f0;
+  :root {
+    /* OneUI Color Palette */
+    --bg: #f2f2f7;
+    --surface: #ffffff;
+    --surface-alt: #f8f9fa;
+    --ink: #1c1c1e;
+    --ink-soft: #8e8e93;
+    --line: #e5e5ea;
 
-    --primary:#0f6f62;
-    --primary-dark:#0a4f45;
-    --primary-tint:#e3f3f0;
+    --primary: #007aff;
+    --primary-dark: #0056b3;
+    --primary-tint: #e5f1ff;
 
-    --amber:#b45309;
-    --amber-tint:#fdf1dd;
-    --emerald:#047857;
-    --emerald-tint:#e1f6ee;
-    --rose:#be123c;
-    --rose-tint:#fce7ea;
+    --amber: #ff9500;
+    --amber-tint: #fff4e5;
+    --emerald: #34c759;
+    --emerald-tint: #ebf9ee;
+    --rose: #ff3b30;
+    --rose-tint: #ffebe9;
 
-    --radius-lg:18px;
-    --radius-md:12px;
-    --shadow-card:0 1px 2px rgba(22,33,58,.04), 0 8px 24px -12px rgba(22,33,58,.12);
+    /* OneUI heavily rounded corners */
+    --radius-xl: 28px;
+    --radius-lg: 20px;
+    --radius-md: 14px;
+    --shadow-card: 0 4px 16px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0,0,0,0.02);
   }
 
   *{ box-sizing:border-box; }
@@ -37,9 +40,7 @@
   body{
     margin:0;
     font-family:'Sarabun','Plus Jakarta Sans',sans-serif;
-    background:
-      radial-gradient(1200px 500px at 10% -10%, #f4faf8 0%, transparent 60%),
-      var(--bg);
+    background: var(--bg);
     color:var(--ink);
     min-height:100vh;
     -webkit-font-smoothing:antialiased;
@@ -47,145 +48,126 @@
 
   .num{ font-family:'Plus Jakarta Sans',sans-serif; font-variant-numeric:tabular-nums; }
 
-  .wrap{ max-width:1180px; margin:0 auto; padding:28px 20px 70px; }
-  @media (max-width:576px){ .wrap{ padding:16px 12px 60px; } }
+  .wrap{ max-width:1180px; margin:0 auto; padding:32px 20px 80px; }
+  @media (max-width:576px){ .wrap{ padding:20px 14px 60px; } }
 
-  /* ---------- header / ledger stub ---------- */
+  /* ---------- Header (OneUI Style) ---------- */
   .ledger-header{
-    position:relative;
-    background:var(--surface);
-    border:1px solid var(--line);
-    border-radius:var(--radius-lg);
-    box-shadow:var(--shadow-card);
-    padding:26px 28px;
+    margin-bottom: 24px;
+    padding: 20px 10px;
     display:flex;
     align-items:center;
     justify-content:space-between;
     gap:20px;
     flex-wrap:wrap;
-    overflow:hidden;
   }
-  .ledger-header::before{
-    content:"";
-    position:absolute; left:0; top:0; bottom:0; width:6px;
-    background:linear-gradient(180deg,var(--primary),#12958a);
-  }
-  .ledger-header .head-left{ display:flex; align-items:center; gap:16px; min-width:0; }
-  .ledger-header .stamp{
-    width:56px; height:56px; border-radius:50%;
-    border:2px dashed var(--primary);
-    display:flex; align-items:center; justify-content:center;
-    font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-size:13px;
-    color:var(--primary); flex:none; letter-spacing:.5px;
-    transform:rotate(-6deg); text-align:center; line-height:1.2;
-  }
+  .ledger-header .head-left{ display:flex; align-items:center; gap:20px; min-width:0; }
   .ledger-header h1{
     font-family:'Plus Jakarta Sans',sans-serif;
-    font-size:1.28rem; font-weight:800; margin:0 0 3px; color:var(--ink);
+    font-size:1.75rem; font-weight:800; margin:0 0 4px; color:var(--ink);
+    letter-spacing: -0.5px;
   }
-  .ledger-header p{ margin:0; color:var(--ink-soft); font-size:.92rem; }
+  .ledger-header p{ margin:0; color:var(--ink-soft); font-size:1rem; }
   .btn-sheet{
-    background:var(--primary); color:#fff; border:none; border-radius:999px;
-    padding:11px 22px; font-weight:600; font-size:.92rem; white-space:nowrap;
+    background:var(--surface); color:var(--ink); border:none; border-radius:999px;
+    padding:12px 24px; font-weight:600; font-size:.95rem; white-space:nowrap;
     display:inline-flex; align-items:center; justify-content:center; gap:8px; text-decoration:none;
-    transition:background .15s ease; flex:none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    transition: transform .15s ease;
   }
-  .btn-sheet:hover{ background:var(--primary-dark); color:#fff; }
+  .btn-sheet:active{ transform: scale(0.97); }
 
   @media (max-width:640px){
-    .ledger-header{ flex-direction:column; align-items:stretch; padding:20px; text-align:left; }
-    .ledger-header h1{ font-size:1.1rem; }
-    .btn-sheet{ width:100%; }
-  }
-  @media (max-width:420px){
-    .ledger-header .stamp{ width:46px; height:46px; font-size:11px; }
+    .ledger-header{ flex-direction:column; align-items:flex-start; padding: 10px; }
+    .ledger-header h1{ font-size:1.4rem; }
   }
 
-  /* ---------- stat cards ---------- */
-  .stats{ display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:16px; margin:22px 0; }
+  /* ---------- Stat Cards ---------- */
+  .stats{ display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:16px; margin-bottom: 28px; }
   .stat{
-    background:var(--surface); border:1px solid var(--line); border-radius:var(--radius-md);
-    padding:20px 22px; box-shadow:var(--shadow-card); position:relative;
-    transition:transform .15s ease, box-shadow .15s ease;
+    background:var(--surface); border:none; border-radius:var(--radius-xl);
+    padding:24px; box-shadow:var(--shadow-card); position:relative;
   }
-  .stat:hover{ transform:translateY(-2px); box-shadow:0 4px 6px rgba(22,33,58,.04), 0 14px 30px -14px rgba(22,33,58,.18); }
-  .stat .eyebrow{ font-size:.74rem; font-weight:700; letter-spacing:.06em; color:var(--ink-soft); text-transform:uppercase; padding-right:28px; }
-  .stat .val{ font-size:1.6rem; font-weight:800; margin-top:6px; word-break:break-word; }
-  .stat .val small{ font-size:.85rem; font-weight:500; color:var(--ink-soft); }
+  .stat .eyebrow{ font-size:.85rem; font-weight:600; color:var(--ink-soft); padding-right:28px; }
+  .stat .val{ font-size:1.8rem; font-weight:800; margin-top:8px; word-break:break-word; }
+  .stat .val small{ font-size:.9rem; font-weight:500; color:var(--ink-soft); }
   .stat.in .val{ color:var(--emerald); }
   .stat.out .val{ color:var(--rose); }
   .stat.net .val{ color:var(--primary); }
-  .stat i{ position:absolute; right:20px; top:20px; font-size:1.35rem; opacity:.28; }
+  .stat i{ position:absolute; right:24px; top:24px; font-size:1.5rem; color: var(--ink-soft); opacity:.4; }
 
-  /* ---------- tabs ---------- */
+  /* ---------- Segmented Control (OneUI Tabs) ---------- */
+  .tabbar-container {
+    background: #e3e3e8;
+    border-radius: 999px;
+    padding: 4px;
+    margin-bottom: 24px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .tabbar-container::-webkit-scrollbar { display: none; }
   .tabbar{
-    display:flex; gap:6px; margin:26px 0 18px; border-bottom:1px solid var(--line);
-    overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:thin;
+    display:flex; min-width: max-content; gap: 2px;
   }
   .tabbtn{
-    background:none; border:none; padding:11px 6px; margin-right:22px;
-    font-family:'Sarabun',sans-serif; font-weight:600; font-size:.96rem;
-    color:var(--ink-soft); cursor:pointer; position:relative; white-space:nowrap; flex:none;
+    background:transparent; border:none; padding:12px 20px; border-radius:999px;
+    font-family:'Sarabun',sans-serif; font-weight:600; font-size:.95rem;
+    color:var(--ink-soft); cursor:pointer; flex: 1; transition: all .2s ease;
   }
   .tabbtn i{ margin-right:6px; }
-  .tabbtn.active{ color:var(--primary); }
-  .tabbtn.active::after{
-    content:""; position:absolute; left:0; right:0; bottom:-1px; height:2.5px;
-    background:var(--primary); border-radius:2px;
-  }
+  .tabbtn.active{ background:var(--surface); color:var(--ink); box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
   .tabpane{ display:none; }
   .tabpane.active{ display:block; animation:fade .25s ease; }
   @keyframes fade{ from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:none;} }
 
-  @media (max-width:576px){
-    .tabbtn{ font-size:.85rem; margin-right:16px; padding:9px 2px; }
-  }
-
-  /* ---------- cards / forms ---------- */
+  /* ---------- Panels (Cards) ---------- */
   .panel{
-    background:var(--surface); border:1px solid var(--line); border-radius:var(--radius-lg);
-    box-shadow:var(--shadow-card); padding:26px 26px 24px; margin-bottom:20px;
+    background:var(--surface); border:none; border-radius:var(--radius-xl);
+    box-shadow:var(--shadow-card); padding:30px; margin-bottom:20px;
   }
-  @media (max-width:576px){ .panel{ padding:18px 16px 18px; border-radius:14px; } }
+  @media (max-width:576px){ .panel{ padding:20px; border-radius:var(--radius-lg); } }
 
-  .panel-head{ display:flex; align-items:flex-start; gap:12px; margin-bottom:20px; flex-wrap:wrap; }
+  .panel-head{ display:flex; align-items:center; justify-content: space-between; margin-bottom:24px; flex-wrap:wrap; gap: 16px; }
+  .panel-head .head-left-group { display: flex; align-items: center; gap: 14px; }
   .panel-head .ic{
-    width:36px; height:36px; border-radius:10px; display:flex; align-items:center; justify-content:center;
-    background:var(--primary-tint); color:var(--primary); font-size:1.05rem; flex:none;
+    width:42px; height:42px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+    background:var(--primary-tint); color:var(--primary); font-size:1.2rem; flex:none;
   }
-  .panel-head h5{ margin:0; font-weight:700; font-size:1.02rem; }
-  .panel-head .sub{ margin:2px 0 0; font-size:.82rem; color:var(--ink-soft); }
-  .panel-head .head-text{ min-width:0; flex:1 1 220px; }
+  .panel-head h5{ margin:0; font-weight:700; font-size:1.15rem; }
+  .panel-head .sub{ margin:2px 0 0; font-size:.85rem; color:var(--ink-soft); }
 
-  label.field-label{ font-size:.82rem; font-weight:600; color:var(--ink-soft); margin-bottom:6px; display:block; }
+  /* ---------- Forms ---------- */
+  label.field-label{ font-size:.85rem; font-weight:600; color:var(--ink-soft); margin-bottom:8px; display:block; margin-left:4px; }
   .form-control,.form-select{
-    border-radius:10px; border:1px solid #d8dee8; padding:10px 13px; font-size:.94rem;
-    background:var(--surface-alt);
+    border-radius:var(--radius-md); border:1px solid var(--line); padding:12px 16px; font-size:.95rem;
+    background:var(--surface-alt); transition: all .2s;
   }
   .form-control:focus,.form-select:focus{
-    box-shadow:0 0 0 3px var(--primary-tint); border-color:var(--primary); background:#fff;
+    box-shadow:0 0 0 4px var(--primary-tint); border-color:var(--primary); background:#fff;
   }
   .form-control[readonly]{ background:#eef2f6; color:var(--ink-soft); }
 
+  /* Buttons */
   .btn-primary-soft{
-    background:var(--primary); border:none; border-radius:10px; color:#fff; font-weight:700;
-    padding:11px 18px; width:100%; transition:background .15s ease;
+    background:var(--primary); border:none; border-radius:999px; color:#fff; font-weight:700;
+    padding:12px 20px; width:100%; transition:transform .1s ease, background .15s ease;
   }
-  .btn-primary-soft:hover{ background:var(--primary-dark); color:#fff; }
+  .btn-primary-soft:active { transform: scale(0.98); }
+  
   .btn-outline-soft{
-    background:#fff; border:1px solid var(--line); border-radius:10px; color:var(--ink);
-    font-weight:600; padding:10px 16px; width:100%;
+    background:#fff; border:1px solid var(--line); border-radius:999px; color:var(--ink);
+    font-weight:600; padding:12px 20px; width:100%;
   }
-  .btn-outline-soft:hover{ background:var(--surface-alt); }
 
-  hr.divider{ border:none; border-top:1px dashed var(--line); margin:20px 0; }
+  hr.divider{ border:none; border-top:1px solid var(--line); margin:24px 0; }
 
-  /* ---------- status badges ---------- */
+  /* ---------- Status Badges ---------- */
   .status-pill{
-    display:inline-flex; align-items:center; gap:6px; padding:4px 12px; border-radius:999px;
-    font-size:.78rem; font-weight:700; flex:none;
+    display:inline-flex; align-items:center; gap:6px; padding:6px 14px; border-radius:999px;
+    font-size:.8rem; font-weight:700; flex:none;
   }
-  .status-pill::before{ content:""; width:6px; height:6px; border-radius:50%; }
+  .status-pill::before{ content:""; width:8px; height:8px; border-radius:50%; }
   .status-pending{ background:var(--amber-tint); color:var(--amber); }
   .status-pending::before{ background:var(--amber); }
   .status-approved{ background:var(--emerald-tint); color:var(--emerald); }
@@ -193,143 +175,158 @@
   .status-rejected{ background:var(--rose-tint); color:var(--rose); }
   .status-rejected::before{ background:var(--rose); }
 
-  .badge-in{ background:var(--emerald-tint); color:var(--emerald); font-weight:700; padding:5px 12px; border-radius:999px; font-size:.78rem; }
-  .badge-out{ background:var(--rose-tint); color:var(--rose); font-weight:700; padding:5px 12px; border-radius:999px; font-size:.78rem; }
+  .badge-in{ background:var(--emerald-tint); color:var(--emerald); font-weight:700; padding:6px 14px; border-radius:999px; font-size:.8rem; }
+  .badge-out{ background:var(--rose-tint); color:var(--rose); font-weight:700; padding:6px 14px; border-radius:999px; font-size:.8rem; }
 
-  /* ---------- pending deposit cards: responsive card grid ---------- */
+  /* ---------- Deposit Cards Grid ---------- */
   #pending-list{
-    display:grid;
-    grid-template-columns:repeat(auto-fill, minmax(300px,1fr));
-    gap:16px;
-    align-items:stretch;
+    display:grid; grid-template-columns:repeat(auto-fill, minmax(300px,1fr)); gap:16px;
   }
   .deposit-card{
-    border:1px solid var(--line); border-radius:16px; padding:18px 20px;
-    background:var(--surface-alt); display:flex; flex-direction:column; gap:12px;
-    transition:box-shadow .15s ease;
+    border:1px solid var(--line); border-radius:var(--radius-lg); padding:20px;
+    background:var(--surface); box-shadow: var(--shadow-card); display:flex; flex-direction:column; gap:12px;
   }
-  .deposit-card:hover{ box-shadow:0 6px 18px -8px rgba(22,33,58,.18); }
   .deposit-card .top-row{ display:flex; justify-content:space-between; align-items:center; gap:10px; }
-  .deposit-card .amount{ font-size:1.25rem; font-weight:800; color:var(--emerald); }
-  .deposit-card .grid-info{ display:grid; grid-template-columns:1fr 1fr; gap:10px 16px; font-size:.85rem; }
+  .deposit-card .amount{ font-size:1.4rem; font-weight:800; color:var(--emerald); }
+  .deposit-card .grid-info{ display:grid; grid-template-columns:1fr 1fr; gap:12px 16px; font-size:.88rem; }
   .deposit-card .grid-info .full{ grid-column:1/-1; }
-  .deposit-card .grid-info .k{ color:var(--ink-soft); font-size:.72rem; text-transform:uppercase; letter-spacing:.04em; }
+  .deposit-card .grid-info .k{ color:var(--ink-soft); font-size:.75rem; text-transform:uppercase; letter-spacing:.04em; }
   .deposit-card .grid-info .v{ font-weight:600; word-break:break-word; }
-  .deposit-card .receipt-link{
-    font-size:.82rem; text-align:center; color:var(--primary); font-weight:600; text-decoration:none;
-    border:1px dashed var(--primary); border-radius:9px; padding:7px; display:block;
-  }
-  .deposit-actions{ display:flex; gap:8px; margin-top:auto; padding-top:10px; border-top:1px dashed var(--line); }
-  .deposit-actions button{ flex:1; border-radius:9px; padding:9px 10px; font-weight:700; font-size:.86rem; border:none; }
+  .deposit-actions{ display:flex; gap:10px; margin-top:auto; padding-top:16px; border-top:1px dashed var(--line); }
+  .deposit-actions button{ flex:1; border-radius:999px; padding:10px; font-weight:700; font-size:.9rem; border:none; }
   .deposit-actions .btn-approve{ background:var(--emerald); color:#fff; }
-  .deposit-actions .btn-reject{ background:#fff; border:1px solid var(--rose); color:var(--rose); }
+  .deposit-actions .btn-reject{ background:var(--rose-tint); color:var(--rose); }
 
-  .empty-state{ text-align:center; padding:50px 20px; color:var(--ink-soft); grid-column:1/-1; }
-  .empty-state i{ font-size:2rem; display:block; margin-bottom:10px; opacity:.5; }
+  .empty-state{ text-align:center; padding:60px 20px; color:var(--ink-soft); grid-column:1/-1; font-weight: 500; }
+  .empty-state i{ font-size:2.5rem; display:block; margin-bottom:10px; opacity:.4; }
 
-  /* ---------- table ---------- */
+  /* ---------- Table ---------- */
   .table thead th{
-    background:var(--surface-alt); color:var(--ink-soft); font-weight:700; font-size:.78rem;
-    text-transform:uppercase; letter-spacing:.04em; border-top:none; border-bottom:1px solid var(--line);
-    white-space:nowrap;
+    background:transparent; color:var(--ink-soft); font-weight:700; font-size:.8rem;
+    text-transform:uppercase; letter-spacing:.05em; border-bottom:2px solid var(--line);
+    white-space:nowrap; padding-bottom: 12px;
   }
-  .table td{ font-size:.9rem; vertical-align:middle; border-color:var(--line); }
-  .table-responsive{ border-radius:var(--radius-md); overflow:auto; }
+  .table td{ font-size:.95rem; vertical-align:middle; border-color:var(--line); padding: 14px 8px; }
+  .table-responsive{ overflow:auto; }
 
-  /* ---------- lookup ---------- */
-  .lookup-result{ margin-top:14px; }
+  /* ---------- Lookup ---------- */
+  .lookup-result{ margin-top:16px; }
   .lookup-row{
-    display:flex; justify-content:space-between; align-items:center; gap:10px; padding:10px 14px;
-    border:1px solid var(--line); border-radius:10px; margin-bottom:8px; font-size:.87rem; background:var(--surface-alt);
-    flex-wrap:wrap;
+    display:flex; justify-content:space-between; align-items:center; gap:10px; padding:14px 16px;
+    border:1px solid var(--line); border-radius:var(--radius-md); margin-bottom:8px; font-size:.9rem; background:var(--surface);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.02);
   }
 
-  /* ---------- center-screen notification modal ---------- */
+  /* ---------- Notification & Modals ---------- */
   .notify-backdrop{
-    position:fixed; inset:0; background:rgba(15,23,42,.5); backdrop-filter:blur(2px);
+    position:fixed; inset:0; background:rgba(0,0,0,.4); backdrop-filter:blur(4px);
     display:none; align-items:center; justify-content:center; z-index:1050; padding:20px;
   }
-  .notify-backdrop.show{ display:flex; animation:backdropIn .18s ease; }
+  .notify-backdrop.show{ display:flex; animation:backdropIn .2s ease; }
   .notify-box{
-    background:#fff; border-radius:18px; padding:30px 26px 24px; max-width:380px; width:100%;
-    box-shadow:0 24px 60px -12px rgba(15,23,42,.4); text-align:center;
-    animation:popIn .25s cubic-bezier(.34,1.56,.64,1); border-top:5px solid var(--emerald);
+    background:#fff; border-radius:var(--radius-xl); padding:32px; max-width:400px; width:100%;
+    box-shadow:0 20px 40px rgba(0,0,0,.15); text-align:center;
+    animation:popIn .3s cubic-bezier(.34,1.56,.64,1);
   }
-  .notify-box.error{ border-top-color:var(--rose); }
   .notify-box .ic-wrap{
-    width:54px; height:54px; border-radius:50%; display:flex; align-items:center; justify-content:center;
-    margin:0 auto 14px; font-size:1.5rem;
+    width:64px; height:64px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+    margin:0 auto 20px; font-size:1.8rem;
   }
   .notify-box.success .ic-wrap{ background:var(--emerald-tint); color:var(--emerald); }
   .notify-box.error .ic-wrap{ background:var(--rose-tint); color:var(--rose); }
-  .notify-box .msg{ font-weight:600; font-size:.95rem; margin-bottom:20px; line-height:1.55; color:var(--ink); }
+  .notify-box .msg{ font-weight:600; font-size:1rem; margin-bottom:24px; color:var(--ink); }
   .notify-box .close-btn{
-    border:none; border-radius:10px; padding:10px 28px; font-weight:700; background:var(--primary); color:#fff;
-    font-size:.9rem;
+    border:none; border-radius:999px; padding:12px 30px; font-weight:700; background:var(--ink-soft); color:#fff;
+    font-size:.95rem; width: 100%;
   }
+  .notify-box.success .close-btn{ background:var(--primary); }
   .notify-box.error .close-btn{ background:var(--rose); }
-  @keyframes popIn{ from{opacity:0; transform:scale(.9) translateY(6px);} to{opacity:1; transform:scale(1) translateY(0);} }
+  
+  @keyframes popIn{ from{opacity:0; transform:scale(.95) translateY(10px);} to{opacity:1; transform:scale(1) translateY(0);} }
   @keyframes backdropIn{ from{opacity:0;} to{opacity:1;} }
+
+  /* ---------- Print Styling ---------- */
+  @media print {
+    body { background: white; padding: 0; margin: 0; }
+    .wrap { max-width: 100%; padding: 0; }
+    .tabbar-container, .btn-sheet, #print-modal-backdrop, .notify-backdrop, form, hr, .deposit-actions, #btn-print-report, .panel-head p { display: none !important; }
+    .panel { box-shadow: none !important; border: none !important; padding: 0 !important; margin-bottom: 20px; }
+    .ledger-header { margin-bottom: 10px; padding: 0; }
+    .stats { gap: 10px; }
+    .stat { padding: 15px; border: 1px solid #ddd; box-shadow: none; }
+    .tabpane { display: none !important; }
+    #tab-overview { display: block !important; }
+    .table td, .table th { font-size: 12px; padding: 8px !important; }
+    .table td .btn-outline-soft { display: none; } /* Hide receipt links on print */
+  }
 </style>
 </head>
 <body>
 
 <div class="wrap">
-
   <!-- ===== ส่วนหัว ===== -->
   <div class="ledger-header">
     <div class="head-left">
-      <div class="stamp">DTL<br>#33</div>
       <div>
-        <h1>ระบบสารสนเทศเพื่อการบริหารจัดการทางการเงินห้องเรียน</h1>
-        <p>บันทึก ตรวจสอบ และอนุมัติรายรับ–รายจ่ายอย่างโปร่งใส ทุกยอดเงินมีที่มาที่ไปตรวจสอบได้</p>
+        <h1>ระบบบริหารการเงิน DTL #33</h1>
+        <p>บันทึก ตรวจสอบ และอนุมัติรายรับ–รายจ่ายอย่างโปร่งใส</p>
       </div>
     </div>
     <a href="https://docs.google.com/spreadsheets/d/1LLxC5XuOAR6h6sQ6zHzySbrXu6OfueyaBUTKGtMWmBU/edit?usp=sharing" target="_blank" class="btn-sheet">
-      <i class="bi bi-file-earmark-spreadsheet"></i> เปิดสมุดบัญชี (Sheet)
+      <i class="bi bi-file-earmark-spreadsheet text-primary"></i> เปิด Sheet ต้นฉบับ
     </a>
   </div>
 
   <!-- ===== การ์ดสรุปยอด ===== -->
   <div class="stats">
     <div class="stat in">
-      <i class="bi bi-arrow-down-circle"></i>
-      <div class="eyebrow">รายรับรวมสะสม (อนุมัติแล้ว)</div>
+      <i class="bi bi-arrow-down-circle-fill"></i>
+      <div class="eyebrow" id="label-income">รายรับ (เฉพาะเดือนนี้)</div>
       <div class="val num" id="total-income">0.00 <small>บาท</small></div>
     </div>
     <div class="stat out">
-      <i class="bi bi-arrow-up-circle"></i>
-      <div class="eyebrow">รายจ่ายรวมสะสม</div>
+      <i class="bi bi-arrow-up-circle-fill"></i>
+      <div class="eyebrow" id="label-expense">รายจ่าย (เฉพาะเดือนนี้)</div>
       <div class="val num" id="total-expense">0.00 <small>บาท</small></div>
     </div>
     <div class="stat net">
-      <i class="bi bi-wallet2"></i>
-      <div class="eyebrow">ยอดเงินคงเหลือสุทธิ</div>
+      <i class="bi bi-wallet-fill"></i>
+      <div class="eyebrow" id="label-net">ยอดคงเหลือสุทธิ (ทั้งหมด)</div>
       <div class="val num" id="net-balance">0.00 <small>บาท</small></div>
     </div>
   </div>
 
-  <!-- ===== แท็บเมนู ===== -->
-  <div class="tabbar">
-    <button class="tabbtn active" data-tab="tab-overview"><i class="bi bi-journal-text"></i>ภาพรวมและประวัติ</button>
-    <button class="tabbtn" data-tab="tab-student"><i class="bi bi-person-check"></i>แจ้งโอนเงิน (นักศึกษา)</button>
-    <button class="tabbtn" data-tab="tab-approve"><i class="bi bi-patch-check"></i>ตรวจสอบและอนุมัติ <span id="pending-count-badge"></span></button>
-    <button class="tabbtn" data-tab="tab-admin"><i class="bi bi-pencil-square"></i>บันทึกรายการ (ผู้ดูแลระบบ)</button>
+  <!-- ===== แท็บเมนู (Segmented Control) ===== -->
+  <div class="tabbar-container">
+    <div class="tabbar">
+      <button class="tabbtn active" data-tab="tab-overview"><i class="bi bi-journal-text"></i> ประวัติรายการ</button>
+      <button class="tabbtn" data-tab="tab-student"><i class="bi bi-person-check"></i> แจ้งโอนเงิน</button>
+      <button class="tabbtn" data-tab="tab-approve"><i class="bi bi-patch-check"></i> อนุมัติ <span id="pending-count-badge"></span></button>
+      <button class="tabbtn" data-tab="tab-admin"><i class="bi bi-pencil-square"></i> บันทึกรายการ</button>
+    </div>
   </div>
 
   <!-- ===================== TAB: ภาพรวม ===================== -->
   <div class="tabpane active" id="tab-overview">
     <div class="panel">
       <div class="panel-head">
-        <div class="ic"><i class="bi bi-journal-text"></i></div>
-        <div class="head-text">
-          <h5>ประวัติการทำรายการทางการเงินทั้งหมด</h5>
-          <p class="sub">แสดงเฉพาะรายการที่บันทึกเข้าสู่ระบบแล้ว (รายการแจ้งโอนที่ผ่านการอนุมัติ + รายการที่ผู้ดูแลระบบบันทึกเอง)</p>
+        <div class="head-left-group">
+          <div class="ic"><i class="bi bi-clock-history"></i></div>
+          <div>
+            <h5 id="overview-title">รายการเดินบัญชีเดือนปัจจุบัน</h5>
+            <p class="sub" id="overview-subtitle">แสดงรายการอนุมัติแล้วของเดือนปัจจุบันเท่านั้น</p>
+          </div>
         </div>
-        <span class="badge bg-white border text-secondary px-3 py-2 rounded-pill" id="record-count">กำลังดึงข้อมูล...</span>
+        <div class="d-flex align-items-center gap-2">
+          <span class="badge bg-light text-dark border px-3 py-2 rounded-pill" id="record-count">กำลังดึงข้อมูล...</span>
+          <!-- ปุ่มพิมพ์สำหรับ Admin -->
+          <button class="btn btn-primary rounded-pill btn-sm px-3 fw-bold" id="btn-print-report" onclick="openPrintModal()">
+            <i class="bi bi-printer-fill me-1"></i> พิมพ์รายงานทั้งหมด
+          </button>
+        </div>
       </div>
       <div class="table-responsive">
-        <table class="table table-hover align-middle mb-0" id="data-table">
+        <table class="table align-middle mb-0" id="data-table">
           <thead>
             <tr>
               <th>วันที่</th><th>ประเภท</th><th>หมวดหมู่</th><th>รายการ</th>
@@ -346,10 +343,12 @@
   <div class="tabpane" id="tab-student">
     <div class="panel">
       <div class="panel-head">
-        <div class="ic"><i class="bi bi-person-check"></i></div>
-        <div class="head-text">
-          <h5>แบบฟอร์มแจ้งข้อมูลการโอนเงิน</h5>
-          <p class="sub">กรอกรายละเอียดให้ครบถ้วน — รายการจะถูก<strong>ตรวจสอบและอนุมัติโดยผู้ดูแลระบบ</strong>ก่อนนำยอดเข้าสู่ระบบทุกครั้ง</p>
+        <div class="head-left-group">
+          <div class="ic"><i class="bi bi-upload"></i></div>
+          <div>
+            <h5>แบบฟอร์มแจ้งโอนเงิน</h5>
+            <p class="sub">รอการตรวจสอบและอนุมัติจากผู้ดูแลระบบ</p>
+          </div>
         </div>
       </div>
 
@@ -398,21 +397,21 @@
           </div>
 
           <div class="col-12 col-sm-6 col-md-4">
-            <label class="field-label">รหัสอ้างอิงจากสลิป (4 ตัวสุดท้าย)</label>
+            <label class="field-label">รหัสอ้างอิงจากสลิป (4 หลักสุดท้าย)</label>
             <input type="text" class="form-control" id="refNo" maxlength="4" placeholder="เช่น 8821" required>
           </div>
           <div class="col-12 col-sm-6 col-md-4">
-            <label class="field-label"><i class="bi bi-paperclip me-1"></i>แนบหลักฐานการโอนเงิน (สลิป)</label>
+            <label class="field-label"><i class="bi bi-paperclip me-1"></i>แนบหลักฐานการโอนเงิน</label>
             <input type="file" class="form-control" id="depositSlip" accept="image/*,application/pdf" required>
           </div>
           <div class="col-12 col-sm-6 col-md-4">
-            <label class="field-label">หมายเหตุ / วัตถุประสงค์ (ถ้ามี)</label>
-            <input type="text" class="form-control" id="note" placeholder="เช่น ค่าบำรุงห้องเรียน ภาคเรียนที่ 1/2569">
+            <label class="field-label">หมายเหตุ (ถ้ามี)</label>
+            <input type="text" class="form-control" id="note" placeholder="เช่น ค่าบำรุงห้องเรียน 1/2569">
           </div>
 
-          <div class="col-12 col-sm-6 col-md-4">
+          <div class="col-12 mt-4">
             <button type="submit" class="btn-primary-soft" id="deposit-btn">
-              <i class="bi bi-send-check-fill me-1"></i> ยืนยันการแจ้งโอนเงิน
+              ยืนยันการแจ้งโอนเงิน
             </button>
           </div>
         </div>
@@ -421,13 +420,13 @@
       <hr class="divider">
 
       <div>
-        <label class="field-label mb-2">ตรวจสอบสถานะการแจ้งโอนเงินของฉัน</label>
-        <div class="row g-2" style="max-width:460px;">
-          <div class="col-8 col-sm-9">
-            <input type="text" class="form-control" id="lookupStudentId" maxlength="10" placeholder="กรอกรหัสนักศึกษาเพื่อตรวจสอบสถานะ">
+        <h6 class="fw-bold mb-3">ตรวจสอบสถานะการแจ้งโอนเงินของคุณ</h6>
+        <div class="row g-2" style="max-width:500px;">
+          <div class="col-8">
+            <input type="text" class="form-control" id="lookupStudentId" maxlength="10" placeholder="รหัสนักศึกษา">
           </div>
-          <div class="col-4 col-sm-3">
-            <button class="btn-outline-soft h-100" id="lookup-btn" type="button">ตรวจสอบ</button>
+          <div class="col-4">
+            <button class="btn-outline-soft h-100 py-0" id="lookup-btn" type="button">ตรวจสอบ</button>
           </div>
         </div>
         <div class="lookup-result" id="lookup-result"></div>
@@ -439,20 +438,22 @@
   <div class="tabpane" id="tab-approve">
     <div class="panel">
       <div class="panel-head">
-        <div class="ic"><i class="bi bi-patch-check"></i></div>
-        <div class="head-text">
-          <h5>ตรวจสอบและอนุมัติรายการแจ้งโอนเงิน</h5>
-          <p class="sub">ยอดเงินจะถูกบันทึกเข้าสู่ระบบและปรับปรุงยอดรวม <strong>ก็ต่อเมื่อกดอนุมัติ</strong> เท่านั้น</p>
+        <div class="head-left-group">
+          <div class="ic"><i class="bi bi-check2-circle"></i></div>
+          <div>
+            <h5>รายการรออนุมัติ</h5>
+            <p class="sub">ตรวจสอบความถูกต้องก่อนนำยอดเข้าสู่ระบบ</p>
+          </div>
         </div>
       </div>
 
-      <div class="row g-2 align-items-end mb-3">
-        <div class="col-12 col-sm-6 col-md-4">
-          <label class="field-label">รหัสผ่านผู้ดูแลระบบ</label>
-          <input type="password" class="form-control" id="approvePassword" placeholder="กรอกรหัสผ่านเพื่อใช้อนุมัติ/ปฏิเสธรายการ">
+      <div class="row g-2 align-items-end mb-4 bg-light p-3 rounded-4 border">
+        <div class="col-12 col-sm-8">
+          <label class="field-label text-danger">รหัสผ่านผู้ดูแลระบบ</label>
+          <input type="password" class="form-control border-danger-subtle" id="approvePassword" placeholder="รหัสผ่าน Admin">
         </div>
-        <div class="col-12 col-sm-6 col-md-3">
-          <button class="btn-outline-soft" id="refresh-pending-btn" type="button"><i class="bi bi-arrow-clockwise me-1"></i>รีเฟรชรายการ</button>
+        <div class="col-12 col-sm-4">
+          <button class="btn-outline-soft" id="refresh-pending-btn" type="button"><i class="bi bi-arrow-clockwise me-1"></i>รีเฟรช</button>
         </div>
       </div>
 
@@ -464,10 +465,12 @@
   <div class="tabpane" id="tab-admin">
     <div class="panel">
       <div class="panel-head">
-        <div class="ic"><i class="bi bi-pencil-square"></i></div>
-        <div class="head-text">
-          <h5>บันทึกรายการทางการเงิน</h5>
-          <p class="sub">สำหรับรายรับ-รายจ่ายทั่วไปที่ผู้ดูแลระบบบันทึกด้วยตนเอง</p>
+        <div class="head-left-group">
+          <div class="ic"><i class="bi bi-plus-circle"></i></div>
+          <div>
+            <h5>บันทึกรายการบัญชี</h5>
+            <p class="sub">สำหรับรายรับ-รายจ่ายทั่วไป (Admin)</p>
+          </div>
         </div>
       </div>
 
@@ -478,44 +481,46 @@
             <input type="date" class="form-control" id="date" required>
           </div>
           <div class="col-12 col-sm-6 col-lg-3">
-            <label class="field-label">ประเภทธุรกรรม</label>
+            <label class="field-label">ประเภท</label>
             <select class="form-select" id="type" required>
               <option value="IN">รายรับ (IN)</option>
               <option value="OUT">รายจ่าย (OUT)</option>
             </select>
           </div>
           <div class="col-12 col-sm-6 col-lg-3">
-            <label class="field-label">หมวดหมู่รายการ</label>
+            <label class="field-label">หมวดหมู่</label>
             <input type="text" class="form-control" id="category" placeholder="ระบุหมวดหมู่" required>
           </div>
           <div class="col-12 col-sm-6 col-lg-3">
-            <label class="field-label">จำนวนเงิน (บาท)</label>
+            <label class="field-label">จำนวนเงิน</label>
             <input type="number" step="0.01" class="form-control" id="amount" placeholder="0.00" required>
           </div>
 
-          <div class="col-12 col-sm-6 col-md-4">
-            <label class="field-label">รายละเอียดการทำรายการ</label>
+          <div class="col-12 col-md-4">
+            <label class="field-label">รายละเอียด</label>
             <input type="text" class="form-control" id="description" placeholder="ระบุรายละเอียด..." required>
           </div>
-          <div class="col-12 col-sm-6 col-md-4">
-            <label class="field-label">ผู้เกี่ยวข้อง (ผู้รับเงิน/ผู้จ่ายเงิน)</label>
-            <input type="text" class="form-control" id="person" placeholder="ระบุชื่อบุคคลหรือหน่วยงาน" required>
+          <div class="col-12 col-md-4">
+            <label class="field-label">ผู้เกี่ยวข้อง</label>
+            <input type="text" class="form-control" id="person" placeholder="บุคคล/หน่วยงาน" required>
           </div>
           <div class="col-12 col-md-4">
-            <label class="field-label"><i class="bi bi-paperclip me-1"></i>แนบเอกสารประกอบ (ถ้ามี)</label>
+            <label class="field-label">เอกสารประกอบ</label>
             <input type="file" class="form-control" id="receiptFile" accept="image/*,application/pdf">
           </div>
 
-          <div class="col-12"><hr class="divider"></div>
-
-          <div class="col-12 col-md-6">
-            <label class="field-label" style="color:var(--rose);"><i class="bi bi-shield-lock-fill me-1"></i>รหัสผ่านยืนยันสิทธิ์ผู้ดูแลระบบ</label>
-            <input type="password" class="form-control" id="adminPassword" placeholder="กรอกรหัสผ่านเพื่อยืนยัน" required style="border-color:#f2b8c3;">
-          </div>
-          <div class="col-12 col-md-6 d-flex align-items-end">
-            <button type="submit" class="btn-primary-soft" id="submit-btn">
-              <i class="bi bi-check-circle-fill me-1"></i> บันทึกข้อมูลเข้าสู่ระบบ
-            </button>
+          <div class="col-12 mt-4 bg-light p-3 rounded-4 border">
+            <div class="row align-items-end g-3">
+              <div class="col-12 col-md-6">
+                <label class="field-label text-danger">รหัสผ่านยืนยันสิทธิ์</label>
+                <input type="password" class="form-control border-danger-subtle" id="adminPassword" placeholder="รหัสผ่าน Admin" required>
+              </div>
+              <div class="col-12 col-md-6">
+                <button type="submit" class="btn-primary-soft w-100" id="submit-btn">
+                  บันทึกข้อมูล
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </form>
@@ -524,13 +529,30 @@
 
 </div>
 
-<!-- ===== การแจ้งเตือนแบบป็อปอัปกึ่งกลางหน้าจอ ===== -->
+<!-- ===== แจ้งเตือนทั่วไป ===== -->
 <div class="notify-backdrop" id="notify-backdrop">
   <div class="notify-box success" id="notify-box"></div>
 </div>
 
+<!-- ===== แจ้งเตือนขอรหัสผ่าน Print ===== -->
+<div class="notify-backdrop" id="print-modal-backdrop">
+  <div class="notify-box">
+    <div class="ic-wrap bg-light text-dark mb-3"><i class="bi bi-printer"></i></div>
+    <h5 class="fw-bold mb-1">พิมพ์รายงานทั้งหมด</h5>
+    <p class="text-muted small mb-3">กรุณายืนยันรหัสผ่านผู้ดูแลระบบ</p>
+    <input type="password" id="printAdminPassword" class="form-control mb-4 text-center" placeholder="รหัสผ่าน Admin">
+    <div class="d-flex gap-2">
+      <button class="btn btn-light rounded-pill w-100 fw-bold border" onclick="closePrintModal()">ยกเลิก</button>
+      <button class="btn btn-primary rounded-pill w-100 fw-bold" id="btn-execute-print" onclick="executePrint()">ยืนยันพิมพ์</button>
+    </div>
+  </div>
+</div>
+
 <script>
+  // *** กรุณาเปลี่ยน URL นี้เป็น URL Web App ของคุณจากการ Deploy ครั้งล่าสุด ***
   const API_URL = "https://script.google.com/macros/s/AKfycbwIh7o6voTcU0iBKbGMaggQta2uATtIy90QzNfajaQ4NlkmvmkgJ9Cw5otTSR7YBahr/exec";
+
+  let allTransactions = []; // ตัวแปรเก็บข้อมูลตารางทั้งหมด
 
   document.getElementById('date').valueAsDate = new Date();
 
@@ -551,20 +573,19 @@
   function showNotification(message, type = 'success') {
     const backdrop = document.getElementById('notify-backdrop');
     const box = document.getElementById('notify-box');
-    const icon = type === 'success' ? 'bi-check-circle-fill' : 'bi-exclamation-triangle-fill';
-    const btnLabel = type === 'success' ? 'รับทราบ' : 'เข้าใจแล้ว';
-
+    const icon = type === 'success' ? 'bi-check-lg' : 'bi-exclamation-lg';
+    
     box.className = 'notify-box ' + type;
     box.innerHTML = `
       <div class="ic-wrap"><i class="bi ${icon}"></i></div>
       <div class="msg">${message}</div>
-      <button class="close-btn" type="button" onclick="closeNotification()">${btnLabel}</button>
+      <button class="close-btn" type="button" onclick="closeNotification()">ตกลง</button>
     `;
 
     backdrop.classList.add('show');
     clearTimeout(notifyTimer);
     if (type === 'success') {
-      notifyTimer = setTimeout(closeNotification, 2800);
+      notifyTimer = setTimeout(closeNotification, 2500);
     }
   }
 
@@ -583,12 +604,12 @@
     return `<span class="status-pill status-pending">รอตรวจสอบ</span>`;
   }
 
-  /* ---------------- ค้นหาชื่อนักศึกษาอัตโนมัติ ---------------- */
+  /* ---------------- ค้นหาชื่อนักศึกษา ---------------- */
   document.getElementById('studentId').addEventListener('input', function () {
     const studentId = this.value.trim();
     const nameInput = document.getElementById('studentFullname');
     if (studentId.length === 10) {
-      nameInput.value = "กำลังค้นหาข้อมูลนักศึกษา...";
+      nameInput.value = "กำลังค้นหาข้อมูล...";
       fetch(`${API_URL}?action=getStudent&studentId=${studentId}`)
         .then(res => res.json())
         .then(data => {
@@ -601,18 +622,18 @@
     }
   });
 
-  /* ---------------- ส่งแบบฟอร์มแจ้งโอนเงิน (นักศึกษา) ---------------- */
+  /* ---------------- ส่งแบบฟอร์มแจ้งโอนเงิน ---------------- */
   document.getElementById('student-deposit-form').addEventListener('submit', function (e) {
     e.preventDefault();
     const refNo = document.getElementById('refNo').value.trim();
     if (refNo.length !== 4) {
-      showNotification('โปรดระบุรหัสอ้างอิงจากสลิปให้ถูกต้องครบถ้วน (4 ตัวสุดท้าย)', 'error');
+      showNotification('ระบุรหัสอ้างอิงสลิป 4 หลักสุดท้าย', 'error');
       return;
     }
 
     const btn = document.getElementById('deposit-btn');
     btn.disabled = true;
-    btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> กำลังส่งข้อมูล...';
+    btn.innerHTML = 'กำลังส่งข้อมูล...';
 
     const file = document.getElementById('depositSlip').files[0];
     const reader = new FileReader();
@@ -637,7 +658,7 @@
         .then(res => res.json())
         .then(result => {
           btn.disabled = false;
-          btn.innerHTML = '<i class="bi bi-send-check-fill me-1"></i> ยืนยันการแจ้งโอนเงิน';
+          btn.innerHTML = 'ยืนยันการแจ้งโอนเงิน';
           if (result.status === "success") {
             showNotification(result.message, 'success');
             document.getElementById('student-deposit-form').reset();
@@ -647,18 +668,18 @@
         })
         .catch(() => {
           btn.disabled = false;
-          btn.innerHTML = '<i class="bi bi-send-check-fill me-1"></i> ยืนยันการแจ้งโอนเงิน';
-          showNotification('เกิดข้อผิดพลาดในการเชื่อมต่อเครือข่าย', 'error');
+          btn.innerHTML = 'ยืนยันการแจ้งโอนเงิน';
+          showNotification('การเชื่อมต่อผิดพลาด', 'error');
         });
     };
     reader.readAsDataURL(file);
   });
 
-  /* ---------------- ตรวจสอบสถานะการแจ้งโอนเงินของนักศึกษา ---------------- */
+  /* ---------------- ตรวจสอบสถานะส่วนตัว ---------------- */
   document.getElementById('lookup-btn').addEventListener('click', function () {
     const id = document.getElementById('lookupStudentId').value.trim();
     const resultBox = document.getElementById('lookup-result');
-    if (!id) { showNotification('โปรดระบุรหัสนักศึกษาที่ต้องการตรวจสอบ', 'error'); return; }
+    if (!id) { showNotification('ระบุรหัสนักศึกษา', 'error'); return; }
 
     resultBox.innerHTML = `<div class="text-muted small">กำลังค้นหา...</div>`;
     fetch(`${API_URL}?action=getDepositHistory`)
@@ -666,31 +687,31 @@
       .then(rows => {
         const mine = rows.filter(r => String(r[2]).trim() === id);
         if (mine.length === 0) {
-          resultBox.innerHTML = `<div class="text-muted small">ไม่พบประวัติการแจ้งโอนเงินของรหัสนักศึกษานี้</div>`;
+          resultBox.innerHTML = `<div class="text-muted small">ไม่พบประวัติการโอนเงิน</div>`;
           return;
         }
         resultBox.innerHTML = mine.map(r => `
           <div class="lookup-row">
-            <span>฿${(parseFloat(r[4]) || 0).toLocaleString('th-TH', {minimumFractionDigits:2})} — อ้างอิง ${r[6]}</span>
+            <span>฿${(parseFloat(r[4]) || 0).toLocaleString('th-TH', {minimumFractionDigits:2})} — สลิป ${r[6]}</span>
             ${statusPillHtml(r[11])}
           </div>`).join('');
       })
-      .catch(() => { resultBox.innerHTML = `<div class="text-danger small">เกิดข้อผิดพลาดในการตรวจสอบ</div>`; });
+      .catch(() => { resultBox.innerHTML = `<div class="text-danger small">เกิดข้อผิดพลาด</div>`; });
   });
 
-  /* ---------------- โหลดรายการรอการอนุมัติ ---------------- */
+  /* ---------------- โหลดรายการรออนุมัติ ---------------- */
   function loadPendingDeposits() {
     const list = document.getElementById('pending-list');
-    list.innerHTML = `<div class="text-muted small">กำลังโหลดรายการ...</div>`;
+    list.innerHTML = `<div class="text-muted text-center my-4">กำลังโหลดรายการ...</div>`;
 
     fetch(`${API_URL}?action=getPendingDeposits`)
       .then(res => res.json())
       .then(rows => {
         document.getElementById('pending-count-badge').innerHTML = rows.length > 0
-          ? `<span class="badge rounded-pill" style="background:var(--amber);">${rows.length}</span>` : '';
+          ? `<span class="badge rounded-pill ms-1" style="background:var(--amber);">${rows.length}</span>` : '';
 
         if (!rows || rows.length === 0) {
-          list.innerHTML = `<div class="empty-state"><i class="bi bi-inbox"></i>ไม่มีรายการที่รอการตรวจสอบในขณะนี้</div>`;
+          list.innerHTML = `<div class="empty-state"><i class="bi bi-inbox"></i>ไม่มีรายการรอตรวจสอบ</div>`;
           return;
         }
 
@@ -708,26 +729,25 @@
               <div class="grid-info">
                 <div><div class="k">รหัสนักศึกษา</div><div class="v">${r[2]}</div></div>
                 <div><div class="k">ชื่อ-สกุล</div><div class="v">${r[3]}</div></div>
-                <div><div class="k">วันเวลาที่โอน</div><div class="v">${transferTime}</div></div>
-                <div><div class="k">รหัสอ้างอิง</div><div class="v">${r[6]}</div></div>
-                <div><div class="k">ธนาคาร</div><div class="v">${r[7]}</div></div>
-                <div><div class="k">ช่องทาง</div><div class="v">${r[8]}</div></div>
+                <div><div class="k">เวลาโอน</div><div class="v">${transferTime}</div></div>
+                <div><div class="k">อ้างอิง</div><div class="v">${r[6]}</div></div>
+                <div class="full"><div class="k">ธนาคาร/ช่องทาง</div><div class="v">${r[7]} / ${r[8]}</div></div>
                 <div class="full"><div class="k">หมายเหตุ</div><div class="v">${r[9] || '-'}</div></div>
               </div>
-              ${receiptUrl ? `<a href="${receiptUrl}" target="_blank" class="receipt-link"><i class="bi bi-image me-1"></i>ดูหลักฐานการโอน</a>` : ''}
+              ${receiptUrl ? `<a href="${receiptUrl}" target="_blank" class="btn btn-light btn-sm rounded-pill fw-bold border"><i class="bi bi-image me-1"></i> ดูสลิปโอนเงิน</a>` : ''}
               <div class="deposit-actions">
-                <button class="btn-approve" onclick="decideDeposit('${id}','approveDeposit',this)"><i class="bi bi-check-lg me-1"></i>อนุมัติ</button>
-                <button class="btn-reject" onclick="decideDeposit('${id}','rejectDeposit',this)"><i class="bi bi-x-lg me-1"></i>ปฏิเสธ</button>
+                <button class="btn-approve" onclick="decideDeposit('${id}','approveDeposit',this)">อนุมัติ</button>
+                <button class="btn-reject" onclick="decideDeposit('${id}','rejectDeposit',this)">ปฏิเสธ</button>
               </div>
             </div>`;
         }).join('');
       })
-      .catch(() => { list.innerHTML = `<div class="text-danger small">เกิดข้อผิดพลาดในการโหลดรายการ</div>`; });
+      .catch(() => { list.innerHTML = `<div class="text-danger text-center">เกิดข้อผิดพลาด</div>`; });
   }
 
   function decideDeposit(id, action, btn) {
     const password = document.getElementById('approvePassword').value;
-    if (!password) { showNotification('โปรดกรอกรหัสผ่านผู้ดูแลระบบก่อนดำเนินการ', 'error'); return; }
+    if (!password) { showNotification('กรอกรหัสผ่านผู้ดูแลระบบก่อน', 'error'); return; }
 
     const card = btn.closest('.deposit-card');
     card.style.opacity = '.5';
@@ -747,28 +767,19 @@
         }
       })
       .catch(() => {
-        showNotification('เกิดข้อผิดพลาดในการเชื่อมต่อเครือข่าย', 'error');
+        showNotification('การเชื่อมต่อผิดพลาด', 'error');
         card.style.opacity = '1';
         card.style.pointerEvents = 'auto';
       });
   }
-
   document.getElementById('refresh-pending-btn').addEventListener('click', loadPendingDeposits);
 
-  /* ---------------- ดึงรายการธุรกรรมมาแสดงบนตาราง ---------------- */
-  function loadData() {
-    fetch(`${API_URL}?action=getData`)
-      .then(response => response.json())
-      .then(data => renderData(data))
-      .catch(() => { document.getElementById('record-count').innerText = 'เกิดข้อผิดพลาดในการดึงข้อมูล'; });
-  }
-
-  /* ---------------- ส่งแบบฟอร์มบันทึกรายการ (ผู้ดูแลระบบ) ---------------- */
+  /* ---------------- บันทึกรายการ (Admin) ---------------- */
   document.getElementById('transaction-form').addEventListener('submit', function (e) {
     e.preventDefault();
     const submitBtn = document.getElementById('submit-btn');
     submitBtn.disabled = true;
-    submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> กำลังบันทึกข้อมูล...';
+    submitBtn.innerHTML = 'กำลังบันทึก...';
 
     const file = document.getElementById('receiptFile').files[0];
     if (file) {
@@ -801,7 +812,7 @@
       .then(result => {
         const submitBtn = document.getElementById('submit-btn');
         submitBtn.disabled = false;
-        submitBtn.innerHTML = '<i class="bi bi-check-circle-fill me-1"></i> บันทึกข้อมูลเข้าสู่ระบบ';
+        submitBtn.innerHTML = 'บันทึกข้อมูล';
         if (result.status === "success") {
           showNotification(result.message, 'success');
           document.getElementById('transaction-form').reset();
@@ -814,27 +825,84 @@
       .catch(() => {
         const submitBtn = document.getElementById('submit-btn');
         submitBtn.disabled = false;
-        submitBtn.innerHTML = '<i class="bi bi-check-circle-fill me-1"></i> บันทึกข้อมูลเข้าสู่ระบบ';
-        showNotification('เกิดข้อผิดพลาดในการเชื่อมต่อเครือข่าย', 'error');
+        submitBtn.innerHTML = 'บันทึกข้อมูล';
+        showNotification('การเชื่อมต่อผิดพลาด', 'error');
       });
   }
 
-  /* ---------------- แสดงผลข้อมูลตารางและคำนวณยอดรวม ---------------- */
-  function renderData(data) {
+  /* ---------------- ระบบโหลดและแสดงผลข้อมูล (ตาราง & สรุป) ---------------- */
+  function loadData() {
+    fetch(`${API_URL}?action=getData`)
+      .then(response => response.json())
+      .then(data => {
+        allTransactions = data; // เก็บสำรองไว้ทั้งหมดสำหรับตอน Print
+        renderTable(allTransactions, true); // ค่าเริ่มต้น: แสดงเฉพาะเดือนปัจจุบัน
+      })
+      .catch(() => { document.getElementById('record-count').innerText = 'ข้อผิดพลาดการดึงข้อมูล'; });
+  }
+
+  // filterCurrentMonth = true จะกรองตารางเป็นเฉพาะเดือนปัจจุบัน
+  function renderTable(data, filterCurrentMonth = true) {
     const tbody = document.getElementById('table-body');
     tbody.innerHTML = '';
 
     if (!data || data.length <= 1) {
-      tbody.innerHTML = `<tr><td colspan="7" class="empty-state"><i class="bi bi-inbox"></i>ไม่พบข้อมูลการทำรายการในระบบ</td></tr>`;
-      document.getElementById('record-count').innerText = '0 รายการ';
-      document.getElementById('total-income').innerHTML = '0.00 <small>บาท</small>';
-      document.getElementById('total-expense').innerHTML = '0.00 <small>บาท</small>';
-      document.getElementById('net-balance').innerHTML = '0.00 <small>บาท</small>';
+      tbody.innerHTML = `<tr><td colspan="7" class="empty-state"><i class="bi bi-inbox"></i>ไม่พบข้อมูลรายการ</td></tr>`;
+      resetStats();
       return;
     }
 
-    const rows = data.slice(1);
-    let totalIncome = 0, totalExpense = 0;
+    const allDataRows = data.slice(1);
+    
+    // คำนวณ Grand Total ของเงินสะสมทั้งหมดเสมอ เพื่อนำไปใส่ในการ์ดยอดคงเหลือสุทธิ
+    let grandTotalIncome = 0;
+    let grandTotalExpense = 0;
+    allDataRows.forEach(row => {
+      const type = row[2];
+      const amount = parseFloat(row[4]) || 0;
+      if (type === 'IN') grandTotalIncome += amount;
+      else if (type === 'OUT') grandTotalExpense += amount;
+    });
+    const grandNetBalance = grandTotalIncome - grandTotalExpense;
+
+    let rows = allDataRows;
+    
+    // กรองตารางตามเงื่อนไข (เดือนนี้ vs ทั้งหมด)
+    if (filterCurrentMonth) {
+      const now = new Date();
+      const currMonth = now.getMonth();
+      const currYear = now.getFullYear();
+      
+      rows = rows.filter(row => {
+        if(!row[1]) return false;
+        const d = new Date(row[1]);
+        return d.getMonth() === currMonth && d.getFullYear() === currYear;
+      });
+
+      document.getElementById('overview-title').innerText = "รายการเดินบัญชีเดือนปัจจุบัน";
+      document.getElementById('overview-subtitle').innerText = "แสดงเฉพาะรายการที่เกิดขึ้นในเดือนนี้";
+      document.getElementById('label-income').innerText = "รายรับ (เดือนนี้)";
+      document.getElementById('label-expense').innerText = "รายจ่าย (เดือนนี้)";
+      document.getElementById('label-net').innerText = "ยอดคงเหลือสุทธิ (ทั้งหมด)";
+    } else {
+      document.getElementById('overview-title').innerText = "รายงานประวัติรายการทางการเงินทั้งหมด";
+      document.getElementById('overview-subtitle').innerText = "รายการตั้งแต่เริ่มต้นจนถึงปัจจุบัน";
+      document.getElementById('label-income').innerText = "รายรับรวมสะสม";
+      document.getElementById('label-expense').innerText = "รายจ่ายรวมสะสม";
+      document.getElementById('label-net').innerText = "ยอดคงเหลือสุทธิ (ทั้งหมด)";
+    }
+
+    if (rows.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="7" class="empty-state"><i class="bi bi-inbox"></i>ไม่มีรายการในขอบเขตที่เลือก</td></tr>`;
+      document.getElementById('total-income').innerHTML = '0.00 <small>บาท</small>';
+      document.getElementById('total-expense').innerHTML = '0.00 <small>บาท</small>';
+      // ยอดคงเหลือแสดง Grand Total เสมอ
+      document.getElementById('net-balance').innerHTML = grandNetBalance.toLocaleString('th-TH', { minimumFractionDigits: 2 }) + ' <small>บาท</small>';
+      document.getElementById('record-count').innerText = `0 รายการ`;
+      return;
+    }
+
+    let tableIncome = 0, tableExpense = 0;
 
     rows.forEach(row => {
       const dateVal = row[1] ? new Date(row[1]).toLocaleDateString('th-TH', { year: 'numeric', month: 'short', day: 'numeric' }) : '-';
@@ -845,7 +913,7 @@
       const amount = parseFloat(row[4]) || 0;
       const receiptUrl = row[7];
 
-      if (type === 'IN') totalIncome += amount; else if (type === 'OUT') totalExpense += amount;
+      if (type === 'IN') tableIncome += amount; else if (type === 'OUT') tableExpense += amount;
 
       const badgeClass = type === 'IN' ? 'badge-in' : 'badge-out';
       const typeText = type === 'IN' ? 'รายรับ' : 'รายจ่าย';
@@ -855,7 +923,7 @@
 
       let receiptLink = '<span class="text-muted">-</span>';
       if (receiptUrl && receiptUrl.startsWith('http')) {
-        receiptLink = `<a href="${receiptUrl}" target="_blank" class="btn-outline-soft" style="padding:6px 14px; font-size:.8rem; width:auto; display:inline-block;"><i class="bi bi-file-earmark-text me-1"></i>ตรวจสอบ</a>`;
+        receiptLink = `<a href="${receiptUrl}" target="_blank" class="btn-outline-soft" style="padding:6px 14px; font-size:.8rem; width:auto; display:inline-block;">เอกสาร</a>`;
       }
 
       tbody.innerHTML += `
@@ -870,13 +938,81 @@
         </tr>`;
     });
 
-    const netBalance = totalIncome - totalExpense;
-    document.getElementById('total-income').innerHTML = totalIncome.toLocaleString('th-TH', { minimumFractionDigits: 2 }) + ' <small>บาท</small>';
-    document.getElementById('total-expense').innerHTML = totalExpense.toLocaleString('th-TH', { minimumFractionDigits: 2 }) + ' <small>บาท</small>';
-    document.getElementById('net-balance').innerHTML = netBalance.toLocaleString('th-TH', { minimumFractionDigits: 2 }) + ' <small>บาท</small>';
-    document.getElementById('record-count').innerText = `รวมทั้งสิ้น ${rows.length} รายการ`;
+    // อัปเดตข้อมูลบนการ์ด
+    document.getElementById('total-income').innerHTML = tableIncome.toLocaleString('th-TH', { minimumFractionDigits: 2 }) + ' <small>บาท</small>';
+    document.getElementById('total-expense').innerHTML = tableExpense.toLocaleString('th-TH', { minimumFractionDigits: 2 }) + ' <small>บาท</small>';
+    // บังคับให้การ์ด "ยอดคงเหลือ" แสดง Grand Total เสมอ
+    document.getElementById('net-balance').innerHTML = grandNetBalance.toLocaleString('th-TH', { minimumFractionDigits: 2 }) + ' <small>บาท</small>';
+    
+    document.getElementById('record-count').innerText = `${rows.length} รายการ`;
   }
 
+  function resetStats() {
+    document.getElementById('total-income').innerHTML = '0.00 <small>บาท</small>';
+    document.getElementById('total-expense').innerHTML = '0.00 <small>บาท</small>';
+    document.getElementById('net-balance').innerHTML = '0.00 <small>บาท</small>';
+  }
+
+  /* ---------------- ฟังก์ชันสำหรับการพิมพ์รายงาน (Admin) ---------------- */
+  function openPrintModal() {
+    document.getElementById('printAdminPassword').value = '';
+    document.getElementById('print-modal-backdrop').classList.add('show');
+  }
+
+  function closePrintModal() {
+    document.getElementById('print-modal-backdrop').classList.remove('show');
+  }
+
+  // จัดการเหตุการณ์กดคลิกพื้นที่ว่างให้ปิด Modal
+  document.getElementById('print-modal-backdrop').addEventListener('click', function (e) {
+    if (e.target === this) closePrintModal();
+  });
+
+  function executePrint() {
+    const pwd = document.getElementById('printAdminPassword').value;
+    if (!pwd) { alert("กรุณาระบุรหัสผ่านผู้ดูแลระบบ"); return; }
+    
+    const btn = document.getElementById('btn-execute-print');
+    btn.disabled = true;
+    btn.innerText = "กำลังตรวจสอบ...";
+
+    // ตรวจสอบรหัสผ่านกับ Backend
+    fetch(API_URL, { 
+      method: 'POST', 
+      body: JSON.stringify({ action: 'verifyAdmin', adminPassword: pwd }) 
+    })
+    .then(res => res.json())
+    .then(result => {
+      btn.disabled = false;
+      btn.innerText = "ยืนยันพิมพ์";
+
+      if(result.status === 'success') {
+        closePrintModal();
+        // 1. เรนเดอร์ข้อมูลทั้งหมด
+        renderTable(allTransactions, false); 
+        
+        // 2. ดีเลย์เล็กน้อยให้ DOM อัปเดต แล้วสั่งพิมพ์
+        setTimeout(() => {
+          window.print();
+        }, 500);
+
+      } else {
+        alert("รหัสผ่านผู้ดูแลระบบไม่ถูกต้อง");
+      }
+    })
+    .catch(() => {
+      btn.disabled = false;
+      btn.innerText = "ยืนยันพิมพ์";
+      alert("เกิดข้อผิดพลาดในการเชื่อมต่อเครือข่าย");
+    });
+  }
+
+  // เมื่อผู้ใช้กดปิดหน้าจอ Print หรือ ปรินท์เสร็จ ให้กลับมาแสดงเฉพาะเดือนปัจจุบัน
+  window.onafterprint = function() {
+    renderTable(allTransactions, true);
+  };
+
+  // เริ่มโหลดข้อมูล
   loadData();
 </script>
 </body>
