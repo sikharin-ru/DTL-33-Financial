@@ -1,1019 +1,120 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ระบบสารสนเทศทางการเงิน DTL #33</title>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-<style>
-  :root {
-    /* OneUI Color Palette */
-    --bg: #f2f2f7;
-    --surface: #ffffff;
-    --surface-alt: #f8f9fa;
-    --ink: #1c1c1e;
-    --ink-soft: #8e8e93;
-    --line: #e5e5ea;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ระบบสารสนเทศทางการเงิน DTL #33 - อยู่ระหว่างการปรับปรุง</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f2f2f7;
+      --surface: #ffffff;
+      --ink: #1c1c1e;
+      --ink-soft: #8e8e93;
+      --amber: #ff9500;
+      --amber-tint: #fff4e5;
+      --radius-xl: 28px;
+      --shadow-card: 0 12px 32px rgba(0, 0, 0, 0.06), 0 2px 6px rgba(0, 0, 0, 0.04);
+    }
 
-    --primary: #007aff;
-    --primary-dark: #0056b3;
-    --primary-tint: #e5f1ff;
+    * {
+      box-sizing: border-box;
+    }
 
-    --amber: #ff9500;
-    --amber-tint: #fff4e5;
-    --emerald: #34c759;
-    --emerald-tint: #ebf9ee;
-    --rose: #ff3b30;
-    --rose-tint: #ffebe9;
+    body {
+      margin: 0;
+      padding: 20px;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Sarabun', 'Plus Jakarta Sans', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
 
-    /* OneUI heavily rounded corners */
-    --radius-xl: 28px;
-    --radius-lg: 20px;
-    --radius-md: 14px;
-    --shadow-card: 0 4px 16px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0,0,0,0.02);
-  }
+    .maintenance-card {
+      background: var(--surface);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-card);
+      max-width: 540px;
+      width: 100%;
+      padding: 48px 36px;
+      text-align: center;
+    }
 
-  *{ box-sizing:border-box; }
+    .icon-wrapper {
+      width: 84px;
+      height: 84px;
+      background: var(--amber-tint);
+      color: var(--amber);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.75rem;
+      margin: 0 auto 24px;
+    }
 
-  body{
-    margin:0;
-    font-family:'Sarabun','Plus Jakarta Sans',sans-serif;
-    background: var(--bg);
-    color:var(--ink);
-    min-height:100vh;
-    -webkit-font-smoothing:antialiased;
-  }
+    h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 12px;
+    }
 
-  .num{ font-family:'Plus Jakarta Sans',sans-serif; font-variant-numeric:tabular-nums; }
+    p.lead-text {
+      font-size: 1.05rem;
+      color: var(--ink-soft);
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
 
-  .wrap{ max-width:1180px; margin:0 auto; padding:32px 20px 80px; }
-  @media (max-width:576px){ .wrap{ padding:20px 14px 60px; } }
+    .notice-box {
+      background: #f8f9fa;
+      border: 1px dashed #d1d1d6;
+      border-radius: 16px;
+      padding: 16px 20px;
+      font-size: 0.95rem;
+      color: #3a3a3c;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
 
-  /* ---------- Header (OneUI Style) ---------- */
-  .ledger-header{
-    margin-bottom: 24px;
-    padding: 20px 10px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:20px;
-    flex-wrap:wrap;
-  }
-  .ledger-header .head-left{ display:flex; align-items:center; gap:20px; min-width:0; }
-  .ledger-header h1{
-    font-family:'Plus Jakarta Sans',sans-serif;
-    font-size:1.75rem; font-weight:800; margin:0 0 4px; color:var(--ink);
-    letter-spacing: -0.5px;
-  }
-  .ledger-header p{ margin:0; color:var(--ink-soft); font-size:1rem; }
-  .btn-sheet{
-    background:var(--surface); color:var(--ink); border:none; border-radius:999px;
-    padding:12px 24px; font-weight:600; font-size:.95rem; white-space:nowrap;
-    display:inline-flex; align-items:center; justify-content:center; gap:8px; text-decoration:none;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    transition: transform .15s ease;
-  }
-  .btn-sheet:active{ transform: scale(0.97); }
-
-  @media (max-width:640px){
-    .ledger-header{ flex-direction:column; align-items:flex-start; padding: 10px; }
-    .ledger-header h1{ font-size:1.4rem; }
-  }
-
-  /* ---------- Stat Cards ---------- */
-  .stats{ display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:16px; margin-bottom: 28px; }
-  .stat{
-    background:var(--surface); border:none; border-radius:var(--radius-xl);
-    padding:24px; box-shadow:var(--shadow-card); position:relative;
-  }
-  .stat .eyebrow{ font-size:.85rem; font-weight:600; color:var(--ink-soft); padding-right:28px; }
-  .stat .val{ font-size:1.8rem; font-weight:800; margin-top:8px; word-break:break-word; }
-  .stat .val small{ font-size:.9rem; font-weight:500; color:var(--ink-soft); }
-  .stat.in .val{ color:var(--emerald); }
-  .stat.out .val{ color:var(--rose); }
-  .stat.net .val{ color:var(--primary); }
-  .stat i{ position:absolute; right:24px; top:24px; font-size:1.5rem; color: var(--ink-soft); opacity:.4; }
-
-  /* ---------- Segmented Control (OneUI Tabs) ---------- */
-  .tabbar-container {
-    background: #e3e3e8;
-    border-radius: 999px;
-    padding: 4px;
-    margin-bottom: 24px;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-  }
-  .tabbar-container::-webkit-scrollbar { display: none; }
-  .tabbar{
-    display:flex; min-width: max-content; gap: 2px;
-  }
-  .tabbtn{
-    background:transparent; border:none; padding:12px 20px; border-radius:999px;
-    font-family:'Sarabun',sans-serif; font-weight:600; font-size:.95rem;
-    color:var(--ink-soft); cursor:pointer; flex: 1; transition: all .2s ease;
-  }
-  .tabbtn i{ margin-right:6px; }
-  .tabbtn.active{ background:var(--surface); color:var(--ink); box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
-  .tabpane{ display:none; }
-  .tabpane.active{ display:block; animation:fade .25s ease; }
-  @keyframes fade{ from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:none;} }
-
-  /* ---------- Panels (Cards) ---------- */
-  .panel{
-    background:var(--surface); border:none; border-radius:var(--radius-xl);
-    box-shadow:var(--shadow-card); padding:30px; margin-bottom:20px;
-  }
-  @media (max-width:576px){ .panel{ padding:20px; border-radius:var(--radius-lg); } }
-
-  .panel-head{ display:flex; align-items:center; justify-content: space-between; margin-bottom:24px; flex-wrap:wrap; gap: 16px; }
-  .panel-head .head-left-group { display: flex; align-items: center; gap: 14px; }
-  .panel-head .ic{
-    width:42px; height:42px; border-radius:50%; display:flex; align-items:center; justify-content:center;
-    background:var(--primary-tint); color:var(--primary); font-size:1.2rem; flex:none;
-  }
-  .panel-head h5{ margin:0; font-weight:700; font-size:1.15rem; }
-  .panel-head .sub{ margin:2px 0 0; font-size:.85rem; color:var(--ink-soft); }
-
-  /* ---------- Forms ---------- */
-  label.field-label{ font-size:.85rem; font-weight:600; color:var(--ink-soft); margin-bottom:8px; display:block; margin-left:4px; }
-  .form-control,.form-select{
-    border-radius:var(--radius-md); border:1px solid var(--line); padding:12px 16px; font-size:.95rem;
-    background:var(--surface-alt); transition: all .2s;
-  }
-  .form-control:focus,.form-select:focus{
-    box-shadow:0 0 0 4px var(--primary-tint); border-color:var(--primary); background:#fff;
-  }
-  .form-control[readonly]{ background:#eef2f6; color:var(--ink-soft); }
-
-  /* Buttons */
-  .btn-primary-soft{
-    background:var(--primary); border:none; border-radius:999px; color:#fff; font-weight:700;
-    padding:12px 20px; width:100%; transition:transform .1s ease, background .15s ease;
-  }
-  .btn-primary-soft:active { transform: scale(0.98); }
-  
-  .btn-outline-soft{
-    background:#fff; border:1px solid var(--line); border-radius:999px; color:var(--ink);
-    font-weight:600; padding:12px 20px; width:100%;
-  }
-
-  hr.divider{ border:none; border-top:1px solid var(--line); margin:24px 0; }
-
-  /* ---------- Status Badges ---------- */
-  .status-pill{
-    display:inline-flex; align-items:center; gap:6px; padding:6px 14px; border-radius:999px;
-    font-size:.8rem; font-weight:700; flex:none;
-  }
-  .status-pill::before{ content:""; width:8px; height:8px; border-radius:50%; }
-  .status-pending{ background:var(--amber-tint); color:var(--amber); }
-  .status-pending::before{ background:var(--amber); }
-  .status-approved{ background:var(--emerald-tint); color:var(--emerald); }
-  .status-approved::before{ background:var(--emerald); }
-  .status-rejected{ background:var(--rose-tint); color:var(--rose); }
-  .status-rejected::before{ background:var(--rose); }
-
-  .badge-in{ background:var(--emerald-tint); color:var(--emerald); font-weight:700; padding:6px 14px; border-radius:999px; font-size:.8rem; }
-  .badge-out{ background:var(--rose-tint); color:var(--rose); font-weight:700; padding:6px 14px; border-radius:999px; font-size:.8rem; }
-
-  /* ---------- Deposit Cards Grid ---------- */
-  #pending-list{
-    display:grid; grid-template-columns:repeat(auto-fill, minmax(300px,1fr)); gap:16px;
-  }
-  .deposit-card{
-    border:1px solid var(--line); border-radius:var(--radius-lg); padding:20px;
-    background:var(--surface); box-shadow: var(--shadow-card); display:flex; flex-direction:column; gap:12px;
-  }
-  .deposit-card .top-row{ display:flex; justify-content:space-between; align-items:center; gap:10px; }
-  .deposit-card .amount{ font-size:1.4rem; font-weight:800; color:var(--emerald); }
-  .deposit-card .grid-info{ display:grid; grid-template-columns:1fr 1fr; gap:12px 16px; font-size:.88rem; }
-  .deposit-card .grid-info .full{ grid-column:1/-1; }
-  .deposit-card .grid-info .k{ color:var(--ink-soft); font-size:.75rem; text-transform:uppercase; letter-spacing:.04em; }
-  .deposit-card .grid-info .v{ font-weight:600; word-break:break-word; }
-  .deposit-actions{ display:flex; gap:10px; margin-top:auto; padding-top:16px; border-top:1px dashed var(--line); }
-  .deposit-actions button{ flex:1; border-radius:999px; padding:10px; font-weight:700; font-size:.9rem; border:none; }
-  .deposit-actions .btn-approve{ background:var(--emerald); color:#fff; }
-  .deposit-actions .btn-reject{ background:var(--rose-tint); color:var(--rose); }
-
-  .empty-state{ text-align:center; padding:60px 20px; color:var(--ink-soft); grid-column:1/-1; font-weight: 500; }
-  .empty-state i{ font-size:2.5rem; display:block; margin-bottom:10px; opacity:.4; }
-
-  /* ---------- Table ---------- */
-  .table thead th{
-    background:transparent; color:var(--ink-soft); font-weight:700; font-size:.8rem;
-    text-transform:uppercase; letter-spacing:.05em; border-bottom:2px solid var(--line);
-    white-space:nowrap; padding-bottom: 12px;
-  }
-  .table td{ font-size:.95rem; vertical-align:middle; border-color:var(--line); padding: 14px 8px; }
-  .table-responsive{ overflow:auto; }
-
-  /* ---------- Lookup ---------- */
-  .lookup-result{ margin-top:16px; }
-  .lookup-row{
-    display:flex; justify-content:space-between; align-items:center; gap:10px; padding:14px 16px;
-    border:1px solid var(--line); border-radius:var(--radius-md); margin-bottom:8px; font-size:.9rem; background:var(--surface);
-    box-shadow: 0 2px 6px rgba(0,0,0,0.02);
-  }
-
-  /* ---------- Notification & Modals ---------- */
-  .notify-backdrop{
-    position:fixed; inset:0; background:rgba(0,0,0,.4); backdrop-filter:blur(4px);
-    display:none; align-items:center; justify-content:center; z-index:1050; padding:20px;
-  }
-  .notify-backdrop.show{ display:flex; animation:backdropIn .2s ease; }
-  .notify-box{
-    background:#fff; border-radius:var(--radius-xl); padding:32px; max-width:400px; width:100%;
-    box-shadow:0 20px 40px rgba(0,0,0,.15); text-align:center;
-    animation:popIn .3s cubic-bezier(.34,1.56,.64,1);
-  }
-  .notify-box .ic-wrap{
-    width:64px; height:64px; border-radius:50%; display:flex; align-items:center; justify-content:center;
-    margin:0 auto 20px; font-size:1.8rem;
-  }
-  .notify-box.success .ic-wrap{ background:var(--emerald-tint); color:var(--emerald); }
-  .notify-box.error .ic-wrap{ background:var(--rose-tint); color:var(--rose); }
-  .notify-box .msg{ font-weight:600; font-size:1rem; margin-bottom:24px; color:var(--ink); }
-  .notify-box .close-btn{
-    border:none; border-radius:999px; padding:12px 30px; font-weight:700; background:var(--ink-soft); color:#fff;
-    font-size:.95rem; width: 100%;
-  }
-  .notify-box.success .close-btn{ background:var(--primary); }
-  .notify-box.error .close-btn{ background:var(--rose); }
-  
-  @keyframes popIn{ from{opacity:0; transform:scale(.95) translateY(10px);} to{opacity:1; transform:scale(1) translateY(0);} }
-  @keyframes backdropIn{ from{opacity:0;} to{opacity:1;} }
-
-  /* ---------- Print Styling ---------- */
-  @media print {
-    body { background: white; padding: 0; margin: 0; }
-    .wrap { max-width: 100%; padding: 0; }
-    .tabbar-container, .btn-sheet, #print-modal-backdrop, .notify-backdrop, form, hr, .deposit-actions, #btn-print-report, .panel-head p { display: none !important; }
-    .panel { box-shadow: none !important; border: none !important; padding: 0 !important; margin-bottom: 20px; }
-    .ledger-header { margin-bottom: 10px; padding: 0; }
-    .stats { gap: 10px; }
-    .stat { padding: 15px; border: 1px solid #ddd; box-shadow: none; }
-    .tabpane { display: none !important; }
-    #tab-overview { display: block !important; }
-    .table td, .table th { font-size: 12px; padding: 8px !important; }
-    .table td .btn-outline-soft { display: none; } /* Hide receipt links on print */
-  }
-</style>
+    .system-tag {
+      font-size: 0.8rem;
+      color: #aeaeb2;
+      margin-top: 24px;
+      font-weight: 500;
+    }
+  </style>
 </head>
 <body>
 
-<div class="wrap">
-  <!-- ===== ส่วนหัว ===== -->
-  <div class="ledger-header">
-    <div class="head-left">
-      <div>
-        <h1>ระบบบริหารการเงิน DTL #33</h1>
-        <p>บันทึก ตรวจสอบ และอนุมัติรายรับ–รายจ่ายอย่างโปร่งใส</p>
-      </div>
+  <div class="maintenance-card">
+    <div class="icon-wrapper">
+      <i class="bi bi-tools"></i>
     </div>
-    <a href="https://docs.google.com/spreadsheets/d/1LLxC5XuOAR6h6sQ6zHzySbrXu6OfueyaBUTKGtMWmBU/edit?usp=sharing" target="_blank" class="btn-sheet">
-      <i class="bi bi-file-earmark-spreadsheet text-primary"></i> เปิด Sheet ต้นฉบับ
-    </a>
-  </div>
-
-  <!-- ===== การ์ดสรุปยอด ===== -->
-  <div class="stats">
-    <div class="stat in">
-      <i class="bi bi-arrow-down-circle-fill"></i>
-      <div class="eyebrow" id="label-income">รายรับ (เฉพาะเดือนนี้)</div>
-      <div class="val num" id="total-income">0.00 <small>บาท</small></div>
-    </div>
-    <div class="stat out">
-      <i class="bi bi-arrow-up-circle-fill"></i>
-      <div class="eyebrow" id="label-expense">รายจ่าย (เฉพาะเดือนนี้)</div>
-      <div class="val num" id="total-expense">0.00 <small>บาท</small></div>
-    </div>
-    <div class="stat net">
-      <i class="bi bi-wallet-fill"></i>
-      <div class="eyebrow" id="label-net">ยอดคงเหลือสุทธิ (ทั้งหมด)</div>
-      <div class="val num" id="net-balance">0.00 <small>บาท</small></div>
-    </div>
-  </div>
-
-  <!-- ===== แท็บเมนู (Segmented Control) ===== -->
-  <div class="tabbar-container">
-    <div class="tabbar">
-      <button class="tabbtn active" data-tab="tab-overview"><i class="bi bi-journal-text"></i> ประวัติรายการ</button>
-      <button class="tabbtn" data-tab="tab-student"><i class="bi bi-person-check"></i> แจ้งโอนเงิน</button>
-      <button class="tabbtn" data-tab="tab-approve"><i class="bi bi-patch-check"></i> อนุมัติ <span id="pending-count-badge"></span></button>
-      <button class="tabbtn" data-tab="tab-admin"><i class="bi bi-pencil-square"></i> บันทึกรายการ</button>
-    </div>
-  </div>
-
-  <!-- ===================== TAB: ภาพรวม ===================== -->
-  <div class="tabpane active" id="tab-overview">
-    <div class="panel">
-      <div class="panel-head">
-        <div class="head-left-group">
-          <div class="ic"><i class="bi bi-clock-history"></i></div>
-          <div>
-            <h5 id="overview-title">รายการเดินบัญชีเดือนปัจจุบัน</h5>
-            <p class="sub" id="overview-subtitle">แสดงรายการอนุมัติแล้วของเดือนปัจจุบันเท่านั้น</p>
-          </div>
-        </div>
-        <div class="d-flex align-items-center gap-2">
-          <span class="badge bg-light text-dark border px-3 py-2 rounded-pill" id="record-count">กำลังดึงข้อมูล...</span>
-          <!-- ปุ่มพิมพ์สำหรับ Admin -->
-          <button class="btn btn-primary rounded-pill btn-sm px-3 fw-bold" id="btn-print-report" onclick="openPrintModal()">
-            <i class="bi bi-printer-fill me-1"></i> พิมพ์รายงานทั้งหมด
-          </button>
-        </div>
-      </div>
-      <div class="table-responsive">
-        <table class="table align-middle mb-0" id="data-table">
-          <thead>
-            <tr>
-              <th>วันที่</th><th>ประเภท</th><th>หมวดหมู่</th><th>รายการ</th>
-              <th>ผู้เกี่ยวข้อง</th><th class="text-end">จำนวนเงิน (บาท)</th><th class="text-center">เอกสารอ้างอิง</th>
-            </tr>
-          </thead>
-          <tbody id="table-body"></tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-
-  <!-- ===================== TAB: นักศึกษาแจ้งโอนเงิน ===================== -->
-  <div class="tabpane" id="tab-student">
-    <div class="panel">
-      <div class="panel-head">
-        <div class="head-left-group">
-          <div class="ic"><i class="bi bi-upload"></i></div>
-          <div>
-            <h5>แบบฟอร์มแจ้งโอนเงิน</h5>
-            <p class="sub">รอการตรวจสอบและอนุมัติจากผู้ดูแลระบบ</p>
-          </div>
-        </div>
-      </div>
-
-      <form id="student-deposit-form">
-        <div class="row g-3">
-          <div class="col-12 col-sm-6 col-md-4">
-            <label class="field-label">รหัสนักศึกษา (10 หลัก)</label>
-            <input type="text" class="form-control" id="studentId" maxlength="10" placeholder="ระบุรหัสนักศึกษา" required>
-          </div>
-          <div class="col-12 col-sm-6 col-md-4">
-            <label class="field-label">ชื่อ - สกุล</label>
-            <input type="text" class="form-control" id="studentFullname" placeholder="แสดงข้อมูลอัตโนมัติ" readonly required>
-          </div>
-          <div class="col-12 col-sm-6 col-md-4">
-            <label class="field-label">จำนวนเงินที่โอน (บาท)</label>
-            <input type="number" step="0.01" class="form-control" id="depositAmount" placeholder="0.00" required>
-          </div>
-
-          <div class="col-12 col-sm-6 col-md-4">
-            <label class="field-label">วันและเวลาที่โอนเงิน</label>
-            <input type="datetime-local" class="form-control" id="transferTime" required>
-          </div>
-          <div class="col-12 col-sm-6 col-md-4">
-            <label class="field-label">ธนาคาร / บัญชีต้นทาง</label>
-            <select class="form-select" id="bank" required>
-              <option value="">-- เลือกธนาคาร --</option>
-              <option>ธนาคารกสิกรไทย (KBank)</option>
-              <option>ธนาคารไทยพาณิชย์ (SCB)</option>
-              <option>ธนาคารกรุงเทพ (BBL)</option>
-              <option>ธนาคารกรุงไทย (KTB)</option>
-              <option>ธนาคารทหารไทยธนชาต (TTB)</option>
-              <option>ธนาคารกรุงศรีอยุธยา (BAY)</option>
-              <option>อื่น ๆ</option>
-            </select>
-          </div>
-          <div class="col-12 col-sm-6 col-md-4">
-            <label class="field-label">ช่องทางการโอนเงิน</label>
-            <select class="form-select" id="channel" required>
-              <option value="">-- เลือกช่องทาง --</option>
-              <option>Mobile Banking</option>
-              <option>พร้อมเพย์ (PromptPay)</option>
-              <option>ตู้ ATM / CDM</option>
-              <option>เคาน์เตอร์ธนาคาร</option>
-              <option>อื่น ๆ</option>
-            </select>
-          </div>
-
-          <div class="col-12 col-sm-6 col-md-4">
-            <label class="field-label">รหัสอ้างอิงจากสลิป (4 หลักสุดท้าย)</label>
-            <input type="text" class="form-control" id="refNo" maxlength="4" placeholder="เช่น 8821" required>
-          </div>
-          <div class="col-12 col-sm-6 col-md-4">
-            <label class="field-label"><i class="bi bi-paperclip me-1"></i>แนบหลักฐานการโอนเงิน</label>
-            <input type="file" class="form-control" id="depositSlip" accept="image/*,application/pdf" required>
-          </div>
-          <div class="col-12 col-sm-6 col-md-4">
-            <label class="field-label">หมายเหตุ (ถ้ามี)</label>
-            <input type="text" class="form-control" id="note" placeholder="เช่น ค่าบำรุงห้องเรียน 1/2569">
-          </div>
-
-          <div class="col-12 mt-4">
-            <button type="submit" class="btn-primary-soft" id="deposit-btn">
-              ยืนยันการแจ้งโอนเงิน
-            </button>
-          </div>
-        </div>
-      </form>
-
-      <hr class="divider">
-
-      <div>
-        <h6 class="fw-bold mb-3">ตรวจสอบสถานะการแจ้งโอนเงินของคุณ</h6>
-        <div class="row g-2" style="max-width:500px;">
-          <div class="col-8">
-            <input type="text" class="form-control" id="lookupStudentId" maxlength="10" placeholder="รหัสนักศึกษา">
-          </div>
-          <div class="col-4">
-            <button class="btn-outline-soft h-100 py-0" id="lookup-btn" type="button">ตรวจสอบ</button>
-          </div>
-        </div>
-        <div class="lookup-result" id="lookup-result"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ===================== TAB: ผู้ดูแลระบบตรวจสอบ/อนุมัติ ===================== -->
-  <div class="tabpane" id="tab-approve">
-    <div class="panel">
-      <div class="panel-head">
-        <div class="head-left-group">
-          <div class="ic"><i class="bi bi-check2-circle"></i></div>
-          <div>
-            <h5>รายการรออนุมัติ</h5>
-            <p class="sub">ตรวจสอบความถูกต้องก่อนนำยอดเข้าสู่ระบบ</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="row g-2 align-items-end mb-4 bg-light p-3 rounded-4 border">
-        <div class="col-12 col-sm-8">
-          <label class="field-label text-danger">รหัสผ่านผู้ดูแลระบบ</label>
-          <input type="password" class="form-control border-danger-subtle" id="approvePassword" placeholder="รหัสผ่าน Admin">
-        </div>
-        <div class="col-12 col-sm-4">
-          <button class="btn-outline-soft" id="refresh-pending-btn" type="button"><i class="bi bi-arrow-clockwise me-1"></i>รีเฟรช</button>
-        </div>
-      </div>
-
-      <div id="pending-list"></div>
-    </div>
-  </div>
-
-  <!-- ===================== TAB: ผู้ดูแลระบบบันทึกรายการ ===================== -->
-  <div class="tabpane" id="tab-admin">
-    <div class="panel">
-      <div class="panel-head">
-        <div class="head-left-group">
-          <div class="ic"><i class="bi bi-plus-circle"></i></div>
-          <div>
-            <h5>บันทึกรายการบัญชี</h5>
-            <p class="sub">สำหรับรายรับ-รายจ่ายทั่วไป (Admin)</p>
-          </div>
-        </div>
-      </div>
-
-      <form id="transaction-form">
-        <div class="row g-3">
-          <div class="col-12 col-sm-6 col-lg-3">
-            <label class="field-label">วันที่ทำรายการ</label>
-            <input type="date" class="form-control" id="date" required>
-          </div>
-          <div class="col-12 col-sm-6 col-lg-3">
-            <label class="field-label">ประเภท</label>
-            <select class="form-select" id="type" required>
-              <option value="IN">รายรับ (IN)</option>
-              <option value="OUT">รายจ่าย (OUT)</option>
-            </select>
-          </div>
-          <div class="col-12 col-sm-6 col-lg-3">
-            <label class="field-label">หมวดหมู่</label>
-            <input type="text" class="form-control" id="category" placeholder="ระบุหมวดหมู่" required>
-          </div>
-          <div class="col-12 col-sm-6 col-lg-3">
-            <label class="field-label">จำนวนเงิน</label>
-            <input type="number" step="0.01" class="form-control" id="amount" placeholder="0.00" required>
-          </div>
-
-          <div class="col-12 col-md-4">
-            <label class="field-label">รายละเอียด</label>
-            <input type="text" class="form-control" id="description" placeholder="ระบุรายละเอียด..." required>
-          </div>
-          <div class="col-12 col-md-4">
-            <label class="field-label">ผู้เกี่ยวข้อง</label>
-            <input type="text" class="form-control" id="person" placeholder="บุคคล/หน่วยงาน" required>
-          </div>
-          <div class="col-12 col-md-4">
-            <label class="field-label">เอกสารประกอบ</label>
-            <input type="file" class="form-control" id="receiptFile" accept="image/*,application/pdf">
-          </div>
-
-          <div class="col-12 mt-4 bg-light p-3 rounded-4 border">
-            <div class="row align-items-end g-3">
-              <div class="col-12 col-md-6">
-                <label class="field-label text-danger">รหัสผ่านยืนยันสิทธิ์</label>
-                <input type="password" class="form-control border-danger-subtle" id="adminPassword" placeholder="รหัสผ่าน Admin" required>
-              </div>
-              <div class="col-12 col-md-6">
-                <button type="submit" class="btn-primary-soft w-100" id="submit-btn">
-                  บันทึกข้อมูล
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
-
-</div>
-
-<!-- ===== แจ้งเตือนทั่วไป ===== -->
-<div class="notify-backdrop" id="notify-backdrop">
-  <div class="notify-box success" id="notify-box"></div>
-</div>
-
-<!-- ===== แจ้งเตือนขอรหัสผ่าน Print ===== -->
-<div class="notify-backdrop" id="print-modal-backdrop">
-  <div class="notify-box">
-    <div class="ic-wrap bg-light text-dark mb-3"><i class="bi bi-printer"></i></div>
-    <h5 class="fw-bold mb-1">พิมพ์รายงานทั้งหมด</h5>
-    <p class="text-muted small mb-3">กรุณายืนยันรหัสผ่านผู้ดูแลระบบ</p>
-    <input type="password" id="printAdminPassword" class="form-control mb-4 text-center" placeholder="รหัสผ่าน Admin">
-    <div class="d-flex gap-2">
-      <button class="btn btn-light rounded-pill w-100 fw-bold border" onclick="closePrintModal()">ยกเลิก</button>
-      <button class="btn btn-primary rounded-pill w-100 fw-bold" id="btn-execute-print" onclick="executePrint()">ยืนยันพิมพ์</button>
-    </div>
-  </div>
-</div>
-
-<script>
-  // *** กรุณาเปลี่ยน URL นี้เป็น URL Web App ของคุณจากการ Deploy ครั้งล่าสุด ***
-  const API_URL = "https://script.google.com/macros/s/AKfycbwIh7o6voTcU0iBKbGMaggQta2uATtIy90QzNfajaQ4NlkmvmkgJ9Cw5otTSR7YBahr/exec";
-
-  let allTransactions = []; // ตัวแปรเก็บข้อมูลตารางทั้งหมด
-
-  document.getElementById('date').valueAsDate = new Date();
-
-  /* ---------------- แท็บ ---------------- */
-  document.querySelectorAll('.tabbtn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.tabbtn').forEach(b => b.classList.remove('active'));
-      document.querySelectorAll('.tabpane').forEach(p => p.classList.remove('active'));
-      btn.classList.add('active');
-      document.getElementById(btn.dataset.tab).classList.add('active');
-      if (btn.dataset.tab === 'tab-approve') loadPendingDeposits();
-    });
-  });
-
-  /* ---------------- การแจ้งเตือนกึ่งกลางหน้าจอ ---------------- */
-  let notifyTimer = null;
-
-  function showNotification(message, type = 'success') {
-    const backdrop = document.getElementById('notify-backdrop');
-    const box = document.getElementById('notify-box');
-    const icon = type === 'success' ? 'bi-check-lg' : 'bi-exclamation-lg';
     
-    box.className = 'notify-box ' + type;
-    box.innerHTML = `
-      <div class="ic-wrap"><i class="bi ${icon}"></i></div>
-      <div class="msg">${message}</div>
-      <button class="close-btn" type="button" onclick="closeNotification()">ตกลง</button>
-    `;
+    <h1>อยู่ระหว่างการปรับปรุง</h1>
+    <p class="lead-text">
+      ระบบปิดปรับปรุงชั่วคราวเพื่อพัฒนาระบบและตรวจสอบความถูกต้องของข้อมูล
+    </p>
 
-    backdrop.classList.add('show');
-    clearTimeout(notifyTimer);
-    if (type === 'success') {
-      notifyTimer = setTimeout(closeNotification, 2500);
-    }
-  }
+    <div class="notice-box">
+      <i class="bi bi-info-circle-fill text-warning fs-5"></i>
+      <span>หากต้องการดูข้อมูล กรุณาติดต่อ <strong>Admin ประจำห้องเรียนของท่าน</strong></span>
+    </div>
 
-  function closeNotification() {
-    document.getElementById('notify-backdrop').classList.remove('show');
-    clearTimeout(notifyTimer);
-  }
+    <div class="system-tag">
+      ระบบสารสนเทศเพื่อการบริหารจัดการทางการเงินห้องเรียน DTL #33
+    </div>
+  </div>
 
-  document.getElementById('notify-backdrop').addEventListener('click', function (e) {
-    if (e.target === this) closeNotification();
-  });
-
-  function statusPillHtml(status) {
-    if (status === 'อนุมัติแล้ว') return `<span class="status-pill status-approved">อนุมัติแล้ว</span>`;
-    if (status === 'ถูกปฏิเสธ') return `<span class="status-pill status-rejected">ถูกปฏิเสธ</span>`;
-    return `<span class="status-pill status-pending">รอตรวจสอบ</span>`;
-  }
-
-  /* ---------------- ค้นหาชื่อนักศึกษา ---------------- */
-  document.getElementById('studentId').addEventListener('input', function () {
-    const studentId = this.value.trim();
-    const nameInput = document.getElementById('studentFullname');
-    if (studentId.length === 10) {
-      nameInput.value = "กำลังค้นหาข้อมูล...";
-      fetch(`${API_URL}?action=getStudent&studentId=${studentId}`)
-        .then(res => res.json())
-        .then(data => {
-          if (data.status === "success") nameInput.value = data.fullname;
-          else { nameInput.value = ""; showNotification(data.message, 'error'); }
-        })
-        .catch(() => { nameInput.value = ""; });
-    } else {
-      nameInput.value = "";
-    }
-  });
-
-  /* ---------------- ส่งแบบฟอร์มแจ้งโอนเงิน ---------------- */
-  document.getElementById('student-deposit-form').addEventListener('submit', function (e) {
-    e.preventDefault();
-    const refNo = document.getElementById('refNo').value.trim();
-    if (refNo.length !== 4) {
-      showNotification('ระบุรหัสอ้างอิงสลิป 4 หลักสุดท้าย', 'error');
-      return;
-    }
-
-    const btn = document.getElementById('deposit-btn');
-    btn.disabled = true;
-    btn.innerHTML = 'กำลังส่งข้อมูล...';
-
-    const file = document.getElementById('depositSlip').files[0];
-    const reader = new FileReader();
-    reader.onload = function (event) {
-      const base64Data = event.target.result.split(',')[1];
-      const payload = {
-        action: 'studentSubmit',
-        studentId: document.getElementById('studentId').value,
-        fullname: document.getElementById('studentFullname').value,
-        amount: document.getElementById('depositAmount').value,
-        transferTime: document.getElementById('transferTime').value,
-        bank: document.getElementById('bank').value,
-        channel: document.getElementById('channel').value,
-        note: document.getElementById('note').value,
-        refNo: refNo,
-        file: base64Data,
-        fileName: file.name,
-        mimeType: file.type
-      };
-
-      fetch(API_URL, { method: 'POST', body: JSON.stringify(payload) })
-        .then(res => res.json())
-        .then(result => {
-          btn.disabled = false;
-          btn.innerHTML = 'ยืนยันการแจ้งโอนเงิน';
-          if (result.status === "success") {
-            showNotification(result.message, 'success');
-            document.getElementById('student-deposit-form').reset();
-          } else {
-            showNotification(result.message, 'error');
-          }
-        })
-        .catch(() => {
-          btn.disabled = false;
-          btn.innerHTML = 'ยืนยันการแจ้งโอนเงิน';
-          showNotification('การเชื่อมต่อผิดพลาด', 'error');
-        });
-    };
-    reader.readAsDataURL(file);
-  });
-
-  /* ---------------- ตรวจสอบสถานะส่วนตัว ---------------- */
-  document.getElementById('lookup-btn').addEventListener('click', function () {
-    const id = document.getElementById('lookupStudentId').value.trim();
-    const resultBox = document.getElementById('lookup-result');
-    if (!id) { showNotification('ระบุรหัสนักศึกษา', 'error'); return; }
-
-    resultBox.innerHTML = `<div class="text-muted small">กำลังค้นหา...</div>`;
-    fetch(`${API_URL}?action=getDepositHistory`)
-      .then(res => res.json())
-      .then(rows => {
-        const mine = rows.filter(r => String(r[2]).trim() === id);
-        if (mine.length === 0) {
-          resultBox.innerHTML = `<div class="text-muted small">ไม่พบประวัติการโอนเงิน</div>`;
-          return;
-        }
-        resultBox.innerHTML = mine.map(r => `
-          <div class="lookup-row">
-            <span>฿${(parseFloat(r[4]) || 0).toLocaleString('th-TH', {minimumFractionDigits:2})} — สลิป ${r[6]}</span>
-            ${statusPillHtml(r[11])}
-          </div>`).join('');
-      })
-      .catch(() => { resultBox.innerHTML = `<div class="text-danger small">เกิดข้อผิดพลาด</div>`; });
-  });
-
-  /* ---------------- โหลดรายการรออนุมัติ ---------------- */
-  function loadPendingDeposits() {
-    const list = document.getElementById('pending-list');
-    list.innerHTML = `<div class="text-muted text-center my-4">กำลังโหลดรายการ...</div>`;
-
-    fetch(`${API_URL}?action=getPendingDeposits`)
-      .then(res => res.json())
-      .then(rows => {
-        document.getElementById('pending-count-badge').innerHTML = rows.length > 0
-          ? `<span class="badge rounded-pill ms-1" style="background:var(--amber);">${rows.length}</span>` : '';
-
-        if (!rows || rows.length === 0) {
-          list.innerHTML = `<div class="empty-state"><i class="bi bi-inbox"></i>ไม่มีรายการรอตรวจสอบ</div>`;
-          return;
-        }
-
-        list.innerHTML = rows.map(r => {
-          const id = r[0];
-          const transferTime = r[5] ? new Date(r[5]).toLocaleString('th-TH', { dateStyle: 'medium', timeStyle: 'short' }) : '-';
-          const amount = (parseFloat(r[4]) || 0).toLocaleString('th-TH', { minimumFractionDigits: 2 });
-          const receiptUrl = r[10];
-          return `
-            <div class="deposit-card" data-id="${id}">
-              <div class="top-row">
-                <div class="amount">฿${amount}</div>
-                ${statusPillHtml('รอตรวจสอบ')}
-              </div>
-              <div class="grid-info">
-                <div><div class="k">รหัสนักศึกษา</div><div class="v">${r[2]}</div></div>
-                <div><div class="k">ชื่อ-สกุล</div><div class="v">${r[3]}</div></div>
-                <div><div class="k">เวลาโอน</div><div class="v">${transferTime}</div></div>
-                <div><div class="k">อ้างอิง</div><div class="v">${r[6]}</div></div>
-                <div class="full"><div class="k">ธนาคาร/ช่องทาง</div><div class="v">${r[7]} / ${r[8]}</div></div>
-                <div class="full"><div class="k">หมายเหตุ</div><div class="v">${r[9] || '-'}</div></div>
-              </div>
-              ${receiptUrl ? `<a href="${receiptUrl}" target="_blank" class="btn btn-light btn-sm rounded-pill fw-bold border"><i class="bi bi-image me-1"></i> ดูสลิปโอนเงิน</a>` : ''}
-              <div class="deposit-actions">
-                <button class="btn-approve" onclick="decideDeposit('${id}','approveDeposit',this)">อนุมัติ</button>
-                <button class="btn-reject" onclick="decideDeposit('${id}','rejectDeposit',this)">ปฏิเสธ</button>
-              </div>
-            </div>`;
-        }).join('');
-      })
-      .catch(() => { list.innerHTML = `<div class="text-danger text-center">เกิดข้อผิดพลาด</div>`; });
-  }
-
-  function decideDeposit(id, action, btn) {
-    const password = document.getElementById('approvePassword').value;
-    if (!password) { showNotification('กรอกรหัสผ่านผู้ดูแลระบบก่อน', 'error'); return; }
-
-    const card = btn.closest('.deposit-card');
-    card.style.opacity = '.5';
-    card.style.pointerEvents = 'none';
-
-    fetch(API_URL, { method: 'POST', body: JSON.stringify({ action, id, adminPassword: password }) })
-      .then(res => res.json())
-      .then(result => {
-        if (result.status === 'success') {
-          showNotification(result.message, 'success');
-          loadPendingDeposits();
-          loadData();
-        } else {
-          showNotification(result.message, 'error');
-          card.style.opacity = '1';
-          card.style.pointerEvents = 'auto';
-        }
-      })
-      .catch(() => {
-        showNotification('การเชื่อมต่อผิดพลาด', 'error');
-        card.style.opacity = '1';
-        card.style.pointerEvents = 'auto';
-      });
-  }
-  document.getElementById('refresh-pending-btn').addEventListener('click', loadPendingDeposits);
-
-  /* ---------------- บันทึกรายการ (Admin) ---------------- */
-  document.getElementById('transaction-form').addEventListener('submit', function (e) {
-    e.preventDefault();
-    const submitBtn = document.getElementById('submit-btn');
-    submitBtn.disabled = true;
-    submitBtn.innerHTML = 'กำลังบันทึก...';
-
-    const file = document.getElementById('receiptFile').files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = function (event) {
-        sendDataToAPI({ file: event.target.result.split(',')[1], fileName: file.name, mimeType: file.type });
-      };
-      reader.readAsDataURL(file);
-    } else {
-      sendDataToAPI(null);
-    }
-  });
-
-  function sendDataToAPI(fileObj) {
-    const formData = {
-      date: document.getElementById('date').value,
-      type: document.getElementById('type').value,
-      category: document.getElementById('category').value,
-      amount: document.getElementById('amount').value,
-      description: document.getElementById('description').value,
-      person: document.getElementById('person').value,
-      adminPassword: document.getElementById('adminPassword').value,
-      file: fileObj ? fileObj.file : null,
-      fileName: fileObj ? fileObj.fileName : null,
-      mimeType: fileObj ? fileObj.mimeType : null
-    };
-
-    fetch(API_URL, { method: 'POST', body: JSON.stringify(formData) })
-      .then(response => response.json())
-      .then(result => {
-        const submitBtn = document.getElementById('submit-btn');
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = 'บันทึกข้อมูล';
-        if (result.status === "success") {
-          showNotification(result.message, 'success');
-          document.getElementById('transaction-form').reset();
-          document.getElementById('date').valueAsDate = new Date();
-          loadData();
-        } else {
-          showNotification(result.message, 'error');
-        }
-      })
-      .catch(() => {
-        const submitBtn = document.getElementById('submit-btn');
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = 'บันทึกข้อมูล';
-        showNotification('การเชื่อมต่อผิดพลาด', 'error');
-      });
-  }
-
-  /* ---------------- ระบบโหลดและแสดงผลข้อมูล (ตาราง & สรุป) ---------------- */
-  function loadData() {
-    fetch(`${API_URL}?action=getData`)
-      .then(response => response.json())
-      .then(data => {
-        allTransactions = data; // เก็บสำรองไว้ทั้งหมดสำหรับตอน Print
-        renderTable(allTransactions, true); // ค่าเริ่มต้น: แสดงเฉพาะเดือนปัจจุบัน
-      })
-      .catch(() => { document.getElementById('record-count').innerText = 'ข้อผิดพลาดการดึงข้อมูล'; });
-  }
-
-  // filterCurrentMonth = true จะกรองตารางเป็นเฉพาะเดือนปัจจุบัน
-  function renderTable(data, filterCurrentMonth = true) {
-    const tbody = document.getElementById('table-body');
-    tbody.innerHTML = '';
-
-    if (!data || data.length <= 1) {
-      tbody.innerHTML = `<tr><td colspan="7" class="empty-state"><i class="bi bi-inbox"></i>ไม่พบข้อมูลรายการ</td></tr>`;
-      resetStats();
-      return;
-    }
-
-    const allDataRows = data.slice(1);
-    
-    // คำนวณ Grand Total ของเงินสะสมทั้งหมดเสมอ เพื่อนำไปใส่ในการ์ดยอดคงเหลือสุทธิ
-    let grandTotalIncome = 0;
-    let grandTotalExpense = 0;
-    allDataRows.forEach(row => {
-      const type = row[2];
-      const amount = parseFloat(row[4]) || 0;
-      if (type === 'IN') grandTotalIncome += amount;
-      else if (type === 'OUT') grandTotalExpense += amount;
-    });
-    const grandNetBalance = grandTotalIncome - grandTotalExpense;
-
-    let rows = allDataRows;
-    
-    // กรองตารางตามเงื่อนไข (เดือนนี้ vs ทั้งหมด)
-    if (filterCurrentMonth) {
-      const now = new Date();
-      const currMonth = now.getMonth();
-      const currYear = now.getFullYear();
-      
-      rows = rows.filter(row => {
-        if(!row[1]) return false;
-        const d = new Date(row[1]);
-        return d.getMonth() === currMonth && d.getFullYear() === currYear;
-      });
-
-      document.getElementById('overview-title').innerText = "รายการเดินบัญชีเดือนปัจจุบัน";
-      document.getElementById('overview-subtitle').innerText = "แสดงเฉพาะรายการที่เกิดขึ้นในเดือนนี้";
-      document.getElementById('label-income').innerText = "รายรับ (เดือนนี้)";
-      document.getElementById('label-expense').innerText = "รายจ่าย (เดือนนี้)";
-      document.getElementById('label-net').innerText = "ยอดคงเหลือสุทธิ (ทั้งหมด)";
-    } else {
-      document.getElementById('overview-title').innerText = "รายงานประวัติรายการทางการเงินทั้งหมด";
-      document.getElementById('overview-subtitle').innerText = "รายการตั้งแต่เริ่มต้นจนถึงปัจจุบัน";
-      document.getElementById('label-income').innerText = "รายรับรวมสะสม";
-      document.getElementById('label-expense').innerText = "รายจ่ายรวมสะสม";
-      document.getElementById('label-net').innerText = "ยอดคงเหลือสุทธิ (ทั้งหมด)";
-    }
-
-    if (rows.length === 0) {
-      tbody.innerHTML = `<tr><td colspan="7" class="empty-state"><i class="bi bi-inbox"></i>ไม่มีรายการในขอบเขตที่เลือก</td></tr>`;
-      document.getElementById('total-income').innerHTML = '0.00 <small>บาท</small>';
-      document.getElementById('total-expense').innerHTML = '0.00 <small>บาท</small>';
-      // ยอดคงเหลือแสดง Grand Total เสมอ
-      document.getElementById('net-balance').innerHTML = grandNetBalance.toLocaleString('th-TH', { minimumFractionDigits: 2 }) + ' <small>บาท</small>';
-      document.getElementById('record-count').innerText = `0 รายการ`;
-      return;
-    }
-
-    let tableIncome = 0, tableExpense = 0;
-
-    rows.forEach(row => {
-      const dateVal = row[1] ? new Date(row[1]).toLocaleDateString('th-TH', { year: 'numeric', month: 'short', day: 'numeric' }) : '-';
-      const type = row[2];
-      const category = row[3] || '-';
-      const description = row[5] || '-';
-      const person = row[6] || '-';
-      const amount = parseFloat(row[4]) || 0;
-      const receiptUrl = row[7];
-
-      if (type === 'IN') tableIncome += amount; else if (type === 'OUT') tableExpense += amount;
-
-      const badgeClass = type === 'IN' ? 'badge-in' : 'badge-out';
-      const typeText = type === 'IN' ? 'รายรับ' : 'รายจ่าย';
-      const amountFormatted = amount.toLocaleString('th-TH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-      const amountColor = type === 'IN' ? 'style="color:var(--emerald);"' : 'style="color:var(--rose);"';
-      const sign = type === 'IN' ? '+' : '-';
-
-      let receiptLink = '<span class="text-muted">-</span>';
-      if (receiptUrl && receiptUrl.startsWith('http')) {
-        receiptLink = `<a href="${receiptUrl}" target="_blank" class="btn-outline-soft" style="padding:6px 14px; font-size:.8rem; width:auto; display:inline-block;">เอกสาร</a>`;
-      }
-
-      tbody.innerHTML += `
-        <tr>
-          <td class="text-secondary">${dateVal}</td>
-          <td><span class="${badgeClass}">${typeText}</span></td>
-          <td class="fw-semibold">${category}</td>
-          <td>${description}</td>
-          <td class="text-muted">${person}</td>
-          <td class="text-end fw-bold num" ${amountColor}>${sign}${amountFormatted}</td>
-          <td class="text-center">${receiptLink}</td>
-        </tr>`;
-    });
-
-    // อัปเดตข้อมูลบนการ์ด
-    document.getElementById('total-income').innerHTML = tableIncome.toLocaleString('th-TH', { minimumFractionDigits: 2 }) + ' <small>บาท</small>';
-    document.getElementById('total-expense').innerHTML = tableExpense.toLocaleString('th-TH', { minimumFractionDigits: 2 }) + ' <small>บาท</small>';
-    // บังคับให้การ์ด "ยอดคงเหลือ" แสดง Grand Total เสมอ
-    document.getElementById('net-balance').innerHTML = grandNetBalance.toLocaleString('th-TH', { minimumFractionDigits: 2 }) + ' <small>บาท</small>';
-    
-    document.getElementById('record-count').innerText = `${rows.length} รายการ`;
-  }
-
-  function resetStats() {
-    document.getElementById('total-income').innerHTML = '0.00 <small>บาท</small>';
-    document.getElementById('total-expense').innerHTML = '0.00 <small>บาท</small>';
-    document.getElementById('net-balance').innerHTML = '0.00 <small>บาท</small>';
-  }
-
-  /* ---------------- ฟังก์ชันสำหรับการพิมพ์รายงาน (Admin) ---------------- */
-  function openPrintModal() {
-    document.getElementById('printAdminPassword').value = '';
-    document.getElementById('print-modal-backdrop').classList.add('show');
-  }
-
-  function closePrintModal() {
-    document.getElementById('print-modal-backdrop').classList.remove('show');
-  }
-
-  // จัดการเหตุการณ์กดคลิกพื้นที่ว่างให้ปิด Modal
-  document.getElementById('print-modal-backdrop').addEventListener('click', function (e) {
-    if (e.target === this) closePrintModal();
-  });
-
-  function executePrint() {
-    const pwd = document.getElementById('printAdminPassword').value;
-    if (!pwd) { alert("กรุณาระบุรหัสผ่านผู้ดูแลระบบ"); return; }
-    
-    const btn = document.getElementById('btn-execute-print');
-    btn.disabled = true;
-    btn.innerText = "กำลังตรวจสอบ...";
-
-    // ตรวจสอบรหัสผ่านกับ Backend
-    fetch(API_URL, { 
-      method: 'POST', 
-      body: JSON.stringify({ action: 'verifyAdmin', adminPassword: pwd }) 
-    })
-    .then(res => res.json())
-    .then(result => {
-      btn.disabled = false;
-      btn.innerText = "ยืนยันพิมพ์";
-
-      if(result.status === 'success') {
-        closePrintModal();
-        // 1. เรนเดอร์ข้อมูลทั้งหมด
-        renderTable(allTransactions, false); 
-        
-        // 2. ดีเลย์เล็กน้อยให้ DOM อัปเดต แล้วสั่งพิมพ์
-        setTimeout(() => {
-          window.print();
-        }, 500);
-
-      } else {
-        alert("รหัสผ่านผู้ดูแลระบบไม่ถูกต้อง");
-      }
-    })
-    .catch(() => {
-      btn.disabled = false;
-      btn.innerText = "ยืนยันพิมพ์";
-      alert("เกิดข้อผิดพลาดในการเชื่อมต่อเครือข่าย");
-    });
-  }
-
-  // เมื่อผู้ใช้กดปิดหน้าจอ Print หรือ ปรินท์เสร็จ ให้กลับมาแสดงเฉพาะเดือนปัจจุบัน
-  window.onafterprint = function() {
-    renderTable(allTransactions, true);
-  };
-
-  // เริ่มโหลดข้อมูล
-  loadData();
-</script>
 </body>
 </html>
